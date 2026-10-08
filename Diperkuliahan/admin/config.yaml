@@ -1,0 +1,17 @@
+backend:
+  name: git-gateway
+  branch: main # Sesuaikan dengan branch utama repository GitHub Anda (main atau master)
+
+media_folder: "images" # Folder tempat menyimpan gambar yang di-upload
+public_folder: "/images"
+
+collections:
+  - name: "articles"
+    label: "Artikel"
+    folder: "content/articles" # Folder tempat file markdown artikel akan tersimpan di GitHub
+    create: true
+    fields:
+      - {label: "Judul Artikel", name: "title", widget: "string"}
+      - {label: "Tanggal Publikasi", name: "date", widget: "datetime"}
+      - {label: "Deskripsi Singkat", name: "description", widget: "text"}
+      - {label: "Isi Artikel", name: "body", widget: "markdown"}

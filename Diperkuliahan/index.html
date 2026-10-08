@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diperkuliahan - Platform Edukasi Mahasiswa</title>
+    
+    <!-- Meta Description untuk SEO ditambahkan di sini -->
+    <meta name="description" content="Diperkuliahan adalah platform edukasi dan podcast untuk mahasiswa Indonesia mencapai prestasi akademik dan karir. Temukan inspirasi dan tips dunia kampus!">
+
+    <!-- FAVICON (Multiple Formats for Better Browser Support) -->
+    <!-- Make sure these files exist in the same folder as this index.html -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0056b3',   /* Biru Dominan */
+                        secondary: '#FFD700', /* Kuning Aksen */
+                        dark: '#1e293b',
+                        light: '#f8fafc'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .hero-pattern {
+            background-color: #ffffff;
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* CSS Modal Form Newsletter */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 100; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(15, 23, 42, 0.6); 
+            backdrop-filter: blur(4px);
+        }
+        .modal-content {
+            background-color: #ffffff;
+            margin: 10% auto; 
+            padding: 40px 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
+            text-align: center;
+            animation: slideDown 0.3s ease-out;
+        }
+        @keyframes slideDown {
+            from {transform: translateY(-20px); opacity: 0;}
+            to {transform: translateY(0); opacity: 1;}
+        }
+        .close-btn {
+            color: #94a3b8;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .close-btn:hover { color: #0f172a; }
+        
+        .newsletter-form input[type="email"] {
+            width: 100%;
+            padding: 14px;
+            margin: 16px 0;
+            display: inline-block;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .newsletter-form input[type="email"]:focus {
+            border-color: #0056b3; /* Menggunakan warna primary */
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-secondary selection:text-primary">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white/90 backdrop-blur-md shadow-sm z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo & Brand -->
+                <div class="flex items-center">
+                    <a href="#" class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center overflow-hidden border border-slate-100 shadow-sm p-1">
+                            <img src="Logo Diperkuliahan.jpg" alt="Logo Diperkuliahan" class="w-full h-full object-contain">
+                        </div>
+                        <span class="font-extrabold text-2xl text-primary tracking-tight">Diperkuliahan</span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#tentang" class="text-slate-600 hover:text-primary font-medium transition">Tentang</a>
+                    <a href="#edukasi" class="text-slate-600 hover:text-primary font-medium transition">Edukasi</a>
+                    <a href="#podcast" class="text-slate-600 hover:text-primary font-medium transition">Podcast</a>
+                    
+                    <button id="openNewsletter" class="bg-secondary text-primary font-bold px-6 py-2.5 rounded-full hover:bg-yellow-400 shadow-sm hover:shadow-md transition">
+                        Gabung Newsletter
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-primary focus:outline-none p-2">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 shadow-lg absolute w-full left-0">
+            <div class="px-4 py-4 space-y-2">
+                <a href="#tentang" class="block px-4 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-primary">Tentang</a>
+                <a href="#edukasi" class="block px-4 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-primary">Edukasi</a>
+                <a href="#podcast" class="block px-4 py-3 rounded-lg text-base font-medium text-slate-700 hover:bg-blue-50 hover:text-primary">Podcast</a>
+                
+                <button id="openNewsletterMobile" class="w-full block mt-4 text-center px-4 py-3 rounded-full text-base font-bold bg-secondary text-primary shadow-sm hover:bg-yellow-400">
+                    Gabung Newsletter
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Newsletter Modal -->
+    <div id="newsletterModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 class="text-primary font-extrabold text-2xl mb-2">Tetap Terhubung!</h2>
+            <p class="text-slate-500 text-sm mb-6">Dapatkan info episode podcast terbaru, tips beasiswa, dan panduan karir eksklusif langsung di kotak masukmu.</p>
+            <form class="newsletter-form" action="#" method="POST" onsubmit="alert('Terima kasih telah berlangganan! Fitur pengumpulan email sedang dikonfigurasi.'); return false;">
+                <input type="email" placeholder="Masukkan alamat email kamu..." required>
+                <button type="submit" class="w-full bg-secondary text-primary font-bold px-6 py-3.5 rounded-xl hover:bg-yellow-400 shadow-md transition mt-2">
+                    Berlangganan Sekarang
+                </button>
+            </form>
+            <p class="text-xs text-slate-400 mt-4">Kami menghargai privasimu. Tidak ada spam.</p>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 hero-pattern overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                
+                <!-- Text Content -->
+                <div class="lg:w-1/2 text-center lg:text-left z-10">
+                    <div class="inline-flex items-center gap-2 py-1 px-4 rounded-full bg-blue-100/50 text-primary font-bold text-sm mb-6 border border-blue-200">
+                        <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+                        Platform Edukasi Mahasiswa
+                    </div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-dark leading-tight mb-6">
+                        Inspirasi Menjadi <br>
+                        <span class="text-primary relative">
+                            The Next Mapres
+                            <!-- Decorative underline -->
+                            <svg class="absolute w-full h-3 -bottom-1 left-0 text-secondary" viewBox="0 0 100 10" preserveAspectRatio="none">
+                                <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="8" fill="transparent"/>
+                            </svg>
+                        </span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-slate-600 mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        Siapkan dirimu untuk bersinar di dunia perkuliahan! Kami menghadirkan podcast dan konten edukasi langsung dari mereka yang telah sukses berprestasi.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
+                        <a href="#edukasi" class="bg-primary text-white font-bold text-lg px-8 py-4 rounded-full shadow-lg hover:bg-blue-800 hover:-translate-y-1 transition duration-300 flex items-center justify-center gap-3">
+                            <i class="fas fa-play-circle"></i> Tonton Konten
+                        </a>
+                        <a href="#podcast" class="bg-white text-primary font-bold text-lg px-8 py-4 rounded-full border border-slate-200 hover:border-primary hover:bg-slate-50 transition duration-300 flex items-center justify-center gap-2 shadow-sm">
+                            <i class="fas fa-podcast text-xl"></i> Dengar Podcast
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Visual / Illustration Content -->
+                <div class="lg:w-1/2 relative flex justify-center mt-10 lg:mt-0">
+                    <!-- Background Blobs -->
+                    <div class="absolute inset-0 bg-secondary/20 rounded-full w-72 h-72 lg:w-96 lg:h-96 mx-auto blur-3xl -z-10 animate-pulse"></div>
+                    <div class="absolute inset-0 bg-primary/20 rounded-full w-80 h-80 lg:w-[400px] lg:h-[400px] mx-auto blur-3xl -z-10 translate-x-10 translate-y-10"></div>
+                    
+                    <!-- Main Image -->
+                    <div class="relative w-full max-w-md aspect-square rounded-[2rem] bg-gradient-to-tr from-primary to-blue-400 p-2 shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&h=600&q=80" alt="Ilustrasi Mahasiswa Laki-laki Berdiskusi" class="w-full h-full object-cover rounded-[1.5rem]">
+                        
+                        <!-- Floating Spotify Badge -->
+                        <div class="absolute -bottom-6 -left-6 md:-left-8 bg-white px-5 py-3 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-4 animate-bounce">
+                            <i class="fab fa-spotify text-4xl text-[#1DB954]"></i>
+                            <div>
+                                <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Tersedia di</p>
+                                <p class="font-extrabold text-dark text-lg">Spotify</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="tentang" class="py-24 bg-white border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-dark mb-4">Kenapa <span class="text-primary">Diperkuliahan?</span></h2>
+                <div class="w-24 h-1.5 bg-secondary mx-auto rounded-full mb-6"></div>
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto">Kami berdedikasi untuk memberikan wawasan nyata, memandu mahasiswa dari semester awal hingga siap bersaing di dunia kerja.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                <!-- Podcast Feature -->
+                <div class="bg-slate-50 rounded-[2rem] p-8 md:p-10 border border-slate-100 hover:border-primary/30 hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-16 h-16 bg-primary text-white rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-md group-hover:-translate-y-2 transition-transform">
+                        <i class="fas fa-headphones-alt"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-dark mb-3">Podcast Inspiratif</h3>
+                    <p class="text-slate-600 leading-relaxed mb-6">Sesi bincang santai bersama Mahasiswa Berprestasi, pemenang beasiswa, dan praktisi industri. Dapatkan tips langsung dari sumbernya.</p>
+                    <a href="#podcast" class="text-primary font-bold hover:text-blue-800 flex items-center gap-2">
+                        Mulai Dengarkan <i class="fas fa-arrow-right text-sm"></i>
+                    </a>
+                </div>
+
+                <!-- Education Feature -->
+                <div class="bg-slate-50 rounded-[2rem] p-8 md:p-10 border border-slate-100 hover:border-secondary/50 hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-16 h-16 bg-secondary text-primary rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-md group-hover:-translate-y-2 transition-transform">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-dark mb-3">Konten Edukasi Terpadu</h3>
+                    <p class="text-slate-600 leading-relaxed mb-6">Materi seputar pengembangan skill, persiapan karir, panduan skripsi, hingga info magang yang disajikan secara menarik di media sosial kami.</p>
+                    <a href="#edukasi" class="text-primary font-bold hover:text-blue-800 flex items-center gap-2">
+                        Lihat Konten <i class="fas fa-arrow-right text-sm"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Konten Edukasi (YouTube Videos) -->
+    <section id="edukasi" class="py-24 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-dark mb-4">Video <span class="text-primary">Edukasi Pilihan</span></h2>
+                <div class="w-24 h-1.5 bg-secondary mx-auto rounded-full mb-6"></div>
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto">Tonton diskusi dan panduan eksklusif untuk membantumu berprestasi di kampus.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Video 1 -->
+                <div class="aspect-video rounded-2xl overflow-hidden shadow-lg bg-white border border-slate-200 hover:shadow-xl transition-shadow duration-300">
+                    <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/C7yTadGD4-0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <!-- Video 2 -->
+                <div class="aspect-video rounded-2xl overflow-hidden shadow-lg bg-white border border-slate-200 hover:shadow-xl transition-shadow duration-300">
+                    <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/BBOTlyfXO-U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <!-- Video 3 -->
+                <div class="aspect-video rounded-2xl overflow-hidden shadow-lg bg-white border border-slate-200 hover:shadow-xl transition-shadow duration-300">
+                    <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/Q3KHwkYhTtA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <!-- Video 4 -->
+                <div class="aspect-video rounded-2xl overflow-hidden shadow-lg bg-white border border-slate-200 hover:shadow-xl transition-shadow duration-300">
+                    <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/WkV0PIU5KL0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Podcasts -->
+    <section id="podcast" class="py-24 bg-primary text-white relative">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-extrabold mb-4">Podcast <span class="text-secondary">Pilihan</span></h2>
+                    <p class="text-blue-100 text-lg">Dengarkan episode terbaik kami untuk menemanimu mengerjakan tugas.</p>
+                </div>
+                <a href="https://open.spotify.com/search/diperkuliahan" target="_blank" class="bg-secondary text-primary font-bold px-6 py-3 rounded-full hover:bg-yellow-400 transition inline-flex items-center gap-2 shadow-lg shadow-yellow-500/20">
+                    <i class="fab fa-spotify text-xl"></i> Semua Episode
+                </a>
+            </div>
+
+            <!-- Podcast Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Episode 1 -->
+                <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 hover:-translate-y-1 transition duration-300">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/7C1qXWl2R8Y9vXvyS47gmz?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+
+                <!-- Episode 2 -->
+                <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 hover:-translate-y-1 transition duration-300">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/32Mg85wDIAzs4EvUZB8yqT?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+
+                <!-- Episode 3 -->
+                <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 hover:-translate-y-1 transition duration-300">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/5rMqPvjT7aPECz2TApk6qI?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+                
+                <!-- Episode 4 -->
+                <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 hover:-translate-y-1 transition duration-300">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/0Q4gONM6uguA0hlBFhJUSO?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Links -->
+    <section id="sosmed" class="py-24 bg-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-dark mb-4">Temukan Kami di <span class="text-primary">Sosial Media</span></h2>
+            <p class="text-slate-600 mb-12 max-w-2xl mx-auto">Ikuti @diperkuliahan di seluruh platform sosial media untuk asupan motivasi dan edukasi setiap hari.</p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Instagram -->
+                <a href="https://instagram.com/diperkuliahan" target="_blank" class="bg-slate-50 p-6 rounded-2xl shadow-sm hover:shadow-lg border border-slate-100 flex flex-col items-center gap-4 transition hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-full bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 text-white flex items-center justify-center text-2xl">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                    <span class="font-bold text-slate-800">Instagram</span>
+                </a>
+                
+                <!-- TikTok -->
+                <a href="https://tiktok.com/@diperkuliahan" target="_blank" class="bg-slate-50 p-6 rounded-2xl shadow-sm hover:shadow-lg border border-slate-100 flex flex-col items-center gap-4 transition hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-full bg-black text-white flex items-center justify-center text-2xl">
+                        <i class="fab fa-tiktok"></i>
+                    </div>
+                    <span class="font-bold text-slate-800">TikTok</span>
+                </a>
+
+                <!-- Spotify -->
+                <a href="https://open.spotify.com/search/diperkuliahan" target="_blank" class="bg-slate-50 p-6 rounded-2xl shadow-sm hover:shadow-lg border border-slate-100 flex flex-col items-center gap-4 transition hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-full bg-[#1DB954] text-white flex items-center justify-center text-2xl">
+                        <i class="fab fa-spotify"></i>
+                    </div>
+                    <span class="font-bold text-slate-800">Spotify</span>
+                </a>
+
+                <!-- YouTube -->
+                <a href="https://youtube.com/@diperkuliahan" target="_blank" class="bg-slate-50 p-6 rounded-2xl shadow-sm hover:shadow-lg border border-slate-100 flex flex-col items-center gap-4 transition hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-full bg-[#FF0000] text-white flex items-center justify-center text-2xl">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <span class="font-bold text-slate-800">YouTube</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark pt-16 pb-8 border-t-[6px] border-secondary text-slate-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
+                
+                <!-- Brand Info -->
+                <div class="md:col-span-6 lg:col-span-5 flex flex-col items-center md:items-start text-center md:text-left">
+                    <div class="w-14 h-14 bg-white rounded-lg flex items-center justify-center mb-4 p-1">
+                        <img src="Logo Diperkuliahan.jpg" alt="Logo Diperkuliahan" class="w-full h-full object-contain">
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Diperkuliahan</h3>
+                    <p class="text-sm text-slate-400 leading-relaxed max-w-sm">
+                        Mendedikasikan diri untuk membantu mahasiswa Indonesia menjadi lebih baik. Inspirasi tanpa batas, edukasi tanpa henti.
+                    </p>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="md:col-span-3 lg:col-span-4 flex flex-col items-center md:items-start text-center md:text-left">
+                    <h4 class="text-white font-bold text-lg mb-4">Navigasi</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#tentang" class="hover:text-secondary transition">Tentang Kami</a></li>
+                        <li><a href="#edukasi" class="hover:text-secondary transition">Konten Edukasi</a></li>
+                        <li><a href="#podcast" class="hover:text-secondary transition">Podcast Episode</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social Links & Contact -->
+                <div class="md:col-span-3 lg:col-span-3 flex flex-col items-center md:items-start text-center md:text-left">
+                    <h4 class="text-white font-bold text-lg mb-4">Hubungi Kami</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="https://instagram.com/diperkuliahan" class="hover:text-secondary transition flex items-center gap-2"><i class="fab fa-instagram w-4"></i> @diperkuliahan</a></li>
+                        <li><a href="https://tiktok.com/@diperkuliahan" class="hover:text-secondary transition flex items-center gap-2"><i class="fab fa-tiktok w-4"></i> @diperkuliahan</a></li>
+                        <li><a href="mailto:halo@diperkuliahan.com" class="hover:text-secondary transition flex items-center gap-2 mt-2"><i class="fas fa-envelope w-4"></i> halo@diperkuliahan.com</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-700/50 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+                <p>&copy; 2026 Diperkuliahan. All rights reserved.</p>
+                <div class="flex gap-4">
+                    <a href="privacy.html" class="hover:text-secondary transition">Kebijakan Privasi (Privacy Policy)</a>
+                    <span>•</span>
+                    <p>Made with ❤️ for Indonesian Students</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Navbar Scrolled State
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.remove('shadow-sm');
+            } else {
+                navbar.classList.add('shadow-sm');
+                navbar.classList.remove('shadow-md');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const icon = btn.querySelector('i');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            if(menu.classList.contains('hidden')){
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            }
+        });
+
+        // Close menu when clicking a link
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+
+        // Newsletter Modal Script
+        const modal = document.getElementById("newsletterModal");
+        const desktopBtn = document.getElementById("openNewsletter");
+        const mobileBtn = document.getElementById("openNewsletterMobile");
+        const span = document.getElementsByClassName("close-btn")[0];
+
+        // Fungsi membuka modal
+        const openModal = () => {
+            modal.style.display = "block";
+            // Jika di mobile, tutup juga menu navigasi hamburger
+            menu.classList.add('hidden');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        };
+
+        // Pasang event listener
+        desktopBtn.addEventListener('click', openModal);
+        mobileBtn.addEventListener('click', openModal);
+
+        // Tutup saat (X) diklik
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Tutup saat area luar diklik
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
