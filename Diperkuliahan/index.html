@@ -1,148 +1,1469 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diperkuliahan AI - Asisten Akademik Pintar</title>
-    <meta name="description" content="AI Asisten All-in-One untuk mahasiswa. Bedah jurnal, susun skripsi, dan review CV dalam hitungan detik.">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
-                    colors: {
-                        dark: '#0f172a', /* Warna gelap khas SaaS */
-                        claude: '#d97757', /* Aksen warna mirip Claude AI */
-                        light: '#f8fafc'
-                    }
-                }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diperkuliahan — Minimalist AI Workspace for University Students</title>
+  <meta name="description" content="All-in-One AI Workspace for university students. Five specialist agents for Coursework, Campus Organizations, Competitions, Magang Berdampak & Career, and Thesis—built on Anthropic Claude.">
+  <meta name="theme-color" content="#1D4ED8">
+  
+  <!-- Clean, Ultra-Minimalist Geometric Typography: Plus Jakarta Sans + Inter + JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            heading: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            dp: {
+              blue: '#1D4ED8',      // Crisp Royal Blue
+              blueDark: '#1E3A8A',  // Deep Academic Blue
+              blueLight: '#EFF6FF', // Soft Blue Tint
+              yellow: '#FACC15',    // Signature Diperkuliahan Yellow
+              amber: '#F59E0B',     // Warm Amber Accent
+              yellowTint: '#FEFCE8',// Soft Yellow Tint
+              ink: '#0F172A',       // Slate 900
+              muted: '#64748B',     // Slate 500
+              line: '#E2E8F0',      // Crisp 1px Hairline Border
+              surface: '#F8FAFC',   // Minimalist Off-White Surface
             }
+          }
         }
-    </script>
-    <style>
-        body { font-family: 'Inter', sans-serif; background-color: #fafafa; }
-        .grid-pattern {
-            background-size: 40px 40px;
-            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-        }
-        .glow {
-            box-shadow: 0 0 40px rgba(217, 119, 87, 0.15);
-        }
-    </style>
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #FFFFFF;
+      color: #0F172A;
+      letter-spacing: -0.011em;
+    }
+    h1, h2, h3, h4, .font-heading {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      letter-spacing: -0.03em;
+    }
+    .bg-dot-grid {
+      background-image: radial-gradient(#CBD5E1 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .agent-tab {
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .fade-in {
+      animation: fadeIn 0.25s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+  <!-- Netlify Identity Widget for Decap CMS -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
-<body class="text-slate-800 antialiased relative">
+<body class="antialiased selection:bg-dp-yellow selection:text-dp-ink">
 
-    <!-- Latar Belakang Grid Estetik -->
-    <div class="absolute inset-0 grid-pattern pointer-events-none z-0 opacity-50"></div>
-
-    <!-- Navigasi Minimalis -->
-    <nav class="relative z-10 border-b border-slate-200 bg-white/80 backdrop-blur-md sticky top-0">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="/" class="flex items-center gap-2">
-                <i class="fas fa-layer-group text-claude text-2xl"></i>
-                <span class="font-bold text-xl tracking-tight text-dark">Diperkuliahan</span>
-            </a>
-            <a href="#demo" class="bg-dark text-white font-medium text-sm px-5 py-2.5 rounded-lg hover:bg-slate-800 transition shadow-sm">
-                Book a Demo
-            </a>
+  <!-- ==========================================
+       MINIMALIST STICKY HEADER (HAIRLINE BORDER)
+       ========================================== -->
+  <header class="sticky top-0 z-40 border-b border-dp-line bg-white/85 backdrop-blur-md">
+    <div class="mx-auto flex h-16 max-w-[1160px] items-center justify-between px-6">
+      <!-- Original Minimalist Diperkuliahan Brand Mark -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="relative flex h-8 w-8 items-center justify-center rounded-lg bg-dp-blue text-white font-heading font-bold text-sm shadow-sm transition-transform group-hover:scale-105">
+          d.
+          <span class="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-dp-yellow ring-2 ring-white"></span>
         </div>
-    </nav>
-
-    <!-- Hero Section (Fokus pada Value Proposition) -->
-    <main class="relative z-10 max-w-4xl mx-auto px-6 pt-24 pb-16 text-center">
-        <div class="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-orange-50 border border-orange-100 text-claude font-semibold text-xs mb-8">
-            <span class="w-2 h-2 rounded-full bg-claude animate-pulse"></span>
-            Private Beta v1.0 • Powered by Claude
+        <div class="flex items-baseline gap-1.5">
+          <span class="font-heading text-[16px] font-bold tracking-tight text-dp-ink">diperkuliahan</span>
+          <span class="rounded bg-dp-blueLight px-1.5 py-0.5 font-mono text-[10px] font-medium text-dp-blue">.com</span>
         </div>
+      </a>
+
+      <!-- Minimalist Center Links -->
+      <nav class="hidden md:flex items-center gap-8 text-[13.5px] font-medium text-dp-muted">
+        <a href="#workspace" class="hover:text-dp-ink transition-colors" data-i18n="nav_workspace">Interactive Workspace</a>
+        <a href="#agents" class="hover:text-dp-ink transition-colors" data-i18n="nav_agents">5 Student Agents</a>
+        <a href="#architecture" class="hover:text-dp-ink transition-colors" data-i18n="nav_arch">Claude Engine</a>
+        <a href="#roadmap" class="hover:text-dp-ink transition-colors" data-i18n="nav_roadmap">8-Semester Flow</a>
+        <a href="#faq" class="hover:text-dp-ink transition-colors" data-i18n="nav_faq">FAQ</a>
+      </nav>
+
+      <!-- Language Toggle + Book a Demo Button -->
+      <div class="flex items-center gap-3">
+        <div class="inline-flex rounded-lg border border-dp-line bg-dp-surface p-0.5">
+          <button type="button" id="btn-en" onclick="setLang('en')" class="rounded-md px-2.5 py-1 font-mono text-[11px] font-medium transition-all bg-white text-dp-ink shadow-sm">EN</button>
+          <button type="button" id="btn-id" onclick="setLang('id')" class="rounded-md px-2.5 py-1 font-mono text-[11px] font-medium transition-all text-dp-muted hover:text-dp-ink">ID</button>
+        </div>
+        <button type="button" onclick="openDemoModal()" class="inline-flex h-9 items-center justify-center rounded-lg bg-dp-blue px-4 text-[13px] font-medium text-white transition-colors hover:bg-dp-blueDark cursor-pointer" data-i18n="nav_cta">
+          Book a Demo
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==========================================
+         SECTION 1: ULTRA-CLEAN HERO + INTERACTIVE IDE WORKSPACE
+         ========================================== -->
+    <section class="relative pt-16 pb-20 md:pt-24 md:pb-28 overflow-hidden">
+      <div class="pointer-events-none absolute inset-0 -z-10 bg-dot-grid [mask-image:radial-gradient(ellipse_60%_50%_at_50%_20%,#000_40%,transparent_100%)] opacity-60"></div>
+
+      <div class="mx-auto max-w-[1160px] px-6">
+        <!-- Hero Text Center -->
+        <div class="mx-auto max-w-[760px] text-center">
+          <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-dp-line bg-white px-3.5 py-1 shadow-2xs">
+            <span class="h-2 w-2 rounded-full bg-dp-yellow"></span>
+            <span class="font-mono text-[11px] font-medium text-dp-muted uppercase tracking-wider" data-i18n="hero_badge">
+              Built on Anthropic Claude · All-in-One Student Intelligence
+            </span>
+          </div>
+
+          <h1 class="font-heading text-[38px] sm:text-[52px] md:text-[60px] font-bold leading-[1.08] text-dp-ink" data-i18n="hero_title">
+            One minimalist workspace.<br>
+            <span class="text-dp-blue">Five AI agents</span> for your entire university journey.
+          </h1>
+
+          <p class="mx-auto mt-5 max-w-[600px] text-[16px] md:text-[17.5px] leading-[1.6] text-dp-muted font-normal" data-i18n="hero_subtitle">
+            From freshman assignments and campus organizations to national competitions, Magang Berdampak internships, and your final thesis. Everything connected in one distraction-free academic brain.
+          </p>
+
+          <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <button type="button" onclick="openDemoModal()" class="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-dp-blue px-6 text-[14px] font-medium text-white shadow-sm transition-all hover:bg-dp-blueDark cursor-pointer">
+              <span data-i18n="hero_btn_1">Book a Demo</span>
+              <span class="text-dp-yellow font-mono">→</span>
+            </button>
+            <a href="#workspace" class="inline-flex h-11 items-center justify-center rounded-lg border border-dp-line bg-white px-6 text-[14px] font-medium text-dp-ink transition-colors hover:bg-dp-surface" data-i18n="hero_btn_2">
+              Try Interactive Workspace
+            </a>
+          </div>
+        </div>
+
+        <!-- ==========================================
+             ORIGINAL INTERACTIVE DESKTOP WORKSPACE PREVIEW
+             ========================================== -->
+        <div id="workspace" class="mt-14 scroll-mt-24">
+          <div class="rounded-2xl border border-dp-line bg-white shadow-[0_20px_50px_-20px_rgba(15,23,42,0.08)] overflow-hidden">
+            
+            <!-- Workspace Window Top Bar -->
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-dp-line bg-dp-surface px-4 py-3">
+              <div class="flex items-center gap-2">
+                <span class="h-2.5 w-2.5 rounded-full bg-slate-300"></span>
+                <span class="h-2.5 w-2.5 rounded-full bg-slate-300"></span>
+                <span class="h-2.5 w-2.5 rounded-full bg-dp-yellow"></span>
+                <span class="ml-2 font-mono text-[11px] text-dp-muted">diperkuliahan.com / workspace / <span id="ws-breadcrumb" class="text-dp-blue font-medium">01-coursework-agent</span></span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="rounded bg-white border border-dp-line px-2 py-0.5 font-mono text-[10px] text-dp-muted"><span data-i18n="ws_model_label">Model:</span> <strong class="text-dp-ink">Claude 3.7 Sonnet</strong></span>
+                <span class="rounded bg-dp-yellowTint border border-amber-200 px-2 py-0.5 font-mono text-[10px] text-amber-800" data-i18n="ws_ctx_badge">200K Context Cached</span>
+              </div>
+            </div>
+
+            <!-- Workspace Main Split View -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 min-h-[460px]">
+              
+              <!-- Left Sidebar: 5 Student Agents Selector (3 Cols) -->
+              <div class="border-b lg:border-b-0 lg:border-r border-dp-line bg-dp-surface/60 p-3 lg:col-span-3 flex flex-col justify-between">
+                <div>
+                  <p class="px-2.5 py-1.5 font-mono text-[10px] font-medium uppercase tracking-wider text-dp-muted" data-i18n="ws_sidebar_label">Select Specialist Agent</p>
+                  <div class="mt-1 flex lg:flex-col gap-1 overflow-x-auto pb-1 lg:pb-0">
+                    
+                    <button type="button" onclick="switchAgent(0)" id="ag-btn-0" class="agent-tab flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-[13px] font-medium bg-white text-dp-blue shadow-2xs ring-1 ring-dp-line shrink-0">
+                      <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded bg-dp-blue text-white font-mono text-[11px]">01</span>
+                      <div class="min-w-0">
+                        <p class="truncate font-semibold" data-i18n="ag0_nav">Coursework & Lab</p>
+                        <p class="truncate text-[11px] text-dp-muted font-normal" data-i18n="ag0_sub">Assignments & Lab Reports</p>
+                      </div>
+                    </button>
+
+                    <button type="button" onclick="switchAgent(1)" id="ag-btn-1" class="agent-tab flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-[13px] font-medium text-dp-ink hover:bg-white/70 shrink-0">
+                      <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded bg-slate-200/80 text-dp-ink font-mono text-[11px]">02</span>
+                      <div class="min-w-0">
+                        <p class="truncate font-semibold" data-i18n="ag1_nav">Organization (BEM)</p>
+                        <p class="truncate text-[11px] text-dp-muted font-normal" data-i18n="ag1_sub">Events, TOR, RAB & LPJ</p>
+                      </div>
+                    </button>
+
+                    <button type="button" onclick="switchAgent(2)" id="ag-btn-2" class="agent-tab flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-[13px] font-medium text-dp-ink hover:bg-white/70 shrink-0">
+                      <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded bg-slate-200/80 text-dp-ink font-mono text-[11px]">03</span>
+                      <div class="min-w-0">
+                        <p class="truncate font-semibold" data-i18n="ag2_nav">Competitions & PKM</p>
+                        <p class="truncate text-[11px] text-dp-muted font-normal" data-i18n="ag2_sub">Awards, LKTI & Case Deck</p>
+                      </div>
+                    </button>
+
+                    <button type="button" onclick="switchAgent(3)" id="ag-btn-3" class="agent-tab flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-[13px] font-medium text-dp-ink hover:bg-white/70 shrink-0">
+                      <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded bg-slate-200/80 text-dp-ink font-mono text-[11px]">04</span>
+                      <div class="min-w-0">
+                        <p class="truncate font-semibold" data-i18n="ag3_nav">Internship & Career</p>
+                        <p class="truncate text-[11px] text-dp-muted font-normal" data-i18n="ag3_sub">ATS CV & Magang Berdampak</p>
+                      </div>
+                    </button>
+
+                    <button type="button" onclick="switchAgent(4)" id="ag-btn-4" class="agent-tab flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-[13px] font-medium text-dp-ink hover:bg-white/70 shrink-0">
+                      <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded bg-dp-yellow text-dp-ink font-mono text-[11px] font-bold">05</span>
+                      <div class="min-w-0">
+                        <p class="truncate font-semibold" data-i18n="ag4_nav">Thesis (Skripsi)</p>
+                        <p class="truncate text-[11px] text-dp-muted font-normal" data-i18n="ag4_sub">Journal Synthesis & DOIs</p>
+                      </div>
+                    </button>
+
+                  </div>
+                </div>
+
+                <!-- Persistent Student Profile Memory Indicator -->
+                <div class="mt-4 hidden lg:block rounded-lg border border-dp-line bg-white p-3">
+                  <div class="flex items-center justify-between">
+                    <span class="font-mono text-[10px] font-medium text-dp-blue uppercase" data-i18n="ws_memory_title">Student Memory Graph</span>
+                    <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+                  </div>
+                  <p class="mt-1 text-[11.5px] text-dp-muted leading-snug" data-i18n="ws_memory_note">
+                    Synced across semesters: 14 courses, 2 BEM projects, 1 PKM grant, and 28 thesis PDFs.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Center Column: Minimalist Agent Reasoning Stream (5 Cols) -->
+              <div class="p-6 lg:col-span-5 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-dp-line bg-white">
+                <div id="ws-chat-area" class="fade-in space-y-4">
+                  <!-- Populated dynamically via JS in current language -->
+                </div>
+
+                <!-- Minimalist Prompt Input Bar -->
+                <div class="mt-6 flex items-center justify-between rounded-lg border border-dp-line bg-dp-surface px-3.5 py-2.5">
+                  <span id="ws-input-placeholder" class="truncate text-[12.5px] text-dp-muted"></span>
+                  <span class="ml-2 shrink-0 rounded bg-dp-blue px-2.5 py-1 font-mono text-[10.5px] font-medium text-white" data-i18n="ws_run_btn">Run ↵</span>
+                </div>
+              </div>
+
+              <!-- Right Column: Structured Output / Artifact Preview (4 Cols) -->
+              <div class="bg-dp-surface/40 p-6 lg:col-span-4 flex flex-col justify-between">
+                <div id="ws-artifact-area" class="fade-in">
+                  <!-- Populated dynamically via JS in current language -->
+                </div>
+
+                <div class="mt-6 border-t border-dp-line pt-3 flex items-center justify-between text-[11px] font-mono text-dp-muted">
+                  <span id="ws-tool-used"></span>
+                  <span class="text-dp-blue font-medium" data-i18n="ws_verified_badge">Verified ✓</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 2: THE 5 PILLARS IN A MINIMALIST SWISS BENTO GRID
+         ========================================== -->
+    <section id="agents" class="scroll-mt-20 border-t border-dp-line bg-dp-surface py-20 md:py-28">
+      <div class="mx-auto max-w-[1160px] px-6">
         
-        <h1 class="text-5xl md:text-6xl font-extrabold text-dark tracking-tight leading-tight mb-6">
-            Kecerdasan Buatan untuk <br class="hidden md:block">
-            <span class="text-claude">Maksimalkan Masa Kuliahmu.</span>
-        </h1>
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            <span class="font-mono text-[11px] font-medium uppercase tracking-widest text-dp-blue" data-i18n="bento_eyebrow">Five Dedicated AI Co-Pilots</span>
+            <h2 class="mt-2 font-heading text-[30px] md:text-[38px] font-bold text-dp-ink" data-i18n="bento_title">
+              Built for the 5 real problems every student faces.
+            </h2>
+          </div>
+          <p class="max-w-[380px] text-[14.5px] text-dp-muted" data-i18n="bento_sub">
+            No bloated menus. Each agent has its own specialized tools, templates, and academic guardrails.
+          </p>
+        </div>
+
+        <!-- Clean 1px-Bordered Bento Grid -->
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-6 gap-5">
+          
+          <!-- Card 1: Tugas Mahasiswa (2 cols) -->
+          <div class="md:col-span-2 rounded-xl border border-dp-line bg-white p-6 flex flex-col justify-between hover:border-dp-blue transition-colors">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="rounded-md bg-dp-blueLight px-2.5 py-1 font-mono text-[11px] font-semibold text-dp-blue" data-i18n="b1_badge">01 · COURSEWORK</span>
+                <span class="h-2 w-2 rounded-full bg-dp-blue"></span>
+              </div>
+              <h3 class="mt-5 font-heading text-[19px] font-bold text-dp-ink" data-i18n="b1_title">Coursework & Lab Reports</h3>
+              <p class="mt-2 text-[13.5px] leading-relaxed text-dp-muted" data-i18n="b1_desc">
+                Understand tough lecture derivations Socratically, clean experimental CSV datasets, debug code, and format structured practicum reports.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-dp-line flex flex-wrap gap-1.5 font-mono text-[10.5px] text-dp-muted">
+              <span class="rounded bg-dp-surface px-2 py-0.5" data-i18n="b1_t1">Socratic Tutor</span>
+              <span class="rounded bg-dp-surface px-2 py-0.5" data-i18n="b1_t2">Lab CSV Plotter</span>
+              <span class="rounded bg-dp-surface px-2 py-0.5" data-i18n="b1_t3">Exam Flashcards</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Organisasi Mahasiswa (2 cols) -->
+          <div class="md:col-span-2 rounded-xl border border-dp-line bg-white p-6 flex flex-col justify-between hover:border-dp-blue transition-colors">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="rounded-md bg-dp-yellowTint border border-amber-200 px-2.5 py-1 font-mono text-[11px] font-semibold text-amber-800" data-i18n="b2_badge">02 · ORGANIZATION</span>
+                <span class="h-2 w-2 rounded-full bg-dp-yellow"></span>
+              </div>
+              <h3 class="mt-5 font-heading text-[19px] font-bold text-dp-ink" data-i18n="b2_title">Campus Organizations (BEM/Hima)</h3>
+              <p class="mt-2 text-[13.5px] leading-relaxed text-dp-muted" data-i18n="b2_desc">
+                Run BEM, Hima, and UKM without administrative burnout. Generate event TORs, tiered sponsorship proposals, RAB budgets, and LPJ reports.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-dp-line flex flex-wrap gap-1.5 font-mono text-[10.5px] text-dp-muted">
+              <span class="rounded bg-dp-surface px-2 py-0.5" data-i18n="b2_t1">TOR & Proposal</span>
+              <span class="rounded bg-dp-surface px-2 py-0.5" data-i18n="b2_t2">RAB Generator</span>
+              <span class="rounded bg-dp-surface px-2 py-0.5" data-i18n="b2_t3">Official Letters</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Lomba & Prestasi (2 cols) -->
+          <div class="md:col-span-2 rounded-xl border border-dp-line bg-white p-6 flex flex-col justify-between hover:border-dp-blue transition-colors">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="rounded-md bg-dp-blueLight px-2.5 py-1 font-mono text-[11px] font-semibold text-dp-blue" data-i18n="b3_badge">03 · COMPETITIONS</span>
+                <span class="h-2 w-2 rounded-full bg-dp-blue"></span>
+              </div>
+              <h3 class="mt-5 font-heading text-[19px] font-bold text-dp-ink" data-i18n="b3_title">Competitions, PKM & Achievements</h3>
+              <p class="mt-2 text-[13.5px] leading-relaxed text-dp-muted" data-i18n="b3_desc">
+                Turn ideas into national awards. Audit proposals against Kemendikbud PKM/PIMNAS rules, structure LKTI papers, and sharpen business case decks.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-dp-line flex flex-wrap gap-1.5 font-mono text-[10.5px] text-dp-muted">
+              <span class="rounded bg-dp-surface px-2 py-0.5" data-i18n="b3_t1">PKM Rule Audit</span>
+              <span class="rounded bg-dp-surface px-2 py-0.5" data-i18n="b3_t2">Business Case</span>
+              <span class="rounded bg-dp-surface px-2 py-0.5" data-i18n="b3_t3">Jury Q&A Sim</span>
+            </div>
+          </div>
+
+          <!-- Card 4: Persiapan Magang Berdampak & Karir (3 cols) -->
+          <div class="md:col-span-3 rounded-xl border border-dp-line bg-white p-6 flex flex-col justify-between hover:border-dp-blue transition-colors">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="rounded-md bg-dp-yellowTint border border-amber-200 px-2.5 py-1 font-mono text-[11px] font-semibold text-amber-800" data-i18n="b4_badge">04 · INTERNSHIP & CAREER</span>
+                <span class="font-mono text-[11px] text-dp-muted" data-i18n="b4_meta">Magang Berdampak · MT · Full-Time</span>
+              </div>
+              <h3 class="mt-5 font-heading text-[20px] font-bold text-dp-ink" data-i18n="b4_title">Magang Berdampak & Career Prep</h3>
+              <p class="mt-2 text-[13.5px] leading-relaxed text-dp-muted" data-i18n="b4_desc">
+                Automatically transforms your coursework projects, organization leadership, and competition wins into high-scoring ATS resumes, portfolio case studies, and interactive HR/User mock interviews for Magang Berdampak and graduate roles.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-dp-line flex flex-wrap gap-2 font-mono text-[10.5px] text-dp-muted">
+              <span class="rounded bg-dp-surface px-2.5 py-0.5" data-i18n="b4_t1">ATS CV Scorer</span>
+              <span class="rounded bg-dp-surface px-2.5 py-0.5" data-i18n="b4_t2">STAR Bullet Rewriter</span>
+              <span class="rounded bg-dp-surface px-2.5 py-0.5" data-i18n="b4_t3">Live Mock Interview</span>
+            </div>
+          </div>
+
+          <!-- Card 5: Skripsi / Thesis (3 cols - Highlighted in Deep Blue & Yellow) -->
+          <div class="md:col-span-3 rounded-xl border border-dp-blue bg-dp-blue text-white p-6 flex flex-col justify-between shadow-md">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="rounded-md bg-dp-yellow px-2.5 py-1 font-mono text-[11px] font-bold text-dp-ink" data-i18n="b5_badge">05 · THESIS (SKRIPSI)</span>
+                <span class="font-mono text-[11px] text-blue-200" data-i18n="b5_meta">200K Context · Zero Fake DOIs</span>
+              </div>
+              <h3 class="mt-5 font-heading text-[20px] font-bold text-white" data-i18n="b5_title">Thesis (Skripsi) & Final Defense</h3>
+              <p class="mt-2 text-[13.5px] leading-relaxed text-blue-100" data-i18n="b5_desc">
+                Synthesize 50+ Q1/SINTA journals simultaneously, discover defensible research gaps, build Chapter 2 literature matrices with 100% verified Crossref DOIs, and practice with a simulated thesis defense examiner.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-white/15 flex flex-wrap gap-2 font-mono text-[10.5px] text-blue-100">
+              <span class="rounded bg-white/10 px-2.5 py-0.5" data-i18n="b5_t1">Multi-PDF Synthesis</span>
+              <span class="rounded bg-white/10 px-2.5 py-0.5" data-i18n="b5_t2">DOI Citation Guardrail</span>
+              <span class="rounded bg-white/10 px-2.5 py-0.5" data-i18n="b5_t3">Sempro/Sidang Simulator</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 3: MINIMALIST CLAUDE ARCHITECTURE SCHEMATIC
+         ========================================== -->
+    <section id="architecture" class="scroll-mt-20 border-t border-dp-line bg-white py-20 md:py-28">
+      <div class="mx-auto max-w-[1160px] px-6">
         
-        <p class="text-lg md:text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Satu asisten AI terintegrasi untuk membedah literatur jurnal, menyusun kerangka skripsi, dan mengevaluasi CV-mu dalam hitungan detik. Berhenti membuang waktu untuk hal teknis.
+        <div class="max-w-[680px]">
+          <span class="font-mono text-[11px] font-medium uppercase tracking-widest text-dp-blue" data-i18n="arch_eyebrow">System Architecture</span>
+          <h2 class="mt-2 font-heading text-[30px] md:text-[38px] font-bold text-dp-ink" data-i18n="arch_title">
+            Why we build natively on Anthropic Claude.
+          </h2>
+          <p class="mt-3 text-[15px] leading-relaxed text-dp-muted" data-i18n="arch_desc">
+            University workflows require deep reasoning across massive documents and strict adherence to academic honesty. Here is how our intelligence layer operates under the hood.
+          </p>
+        </div>
+
+        <!-- Clean 3-Tier Horizontal Schematic -->
+        <div class="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          <!-- Tier 1: Input & Context -->
+          <div class="rounded-xl border border-dp-line bg-dp-surface p-6">
+            <div class="flex items-center justify-between border-b border-dp-line pb-4">
+              <span class="font-mono text-[11px] font-semibold text-dp-muted uppercase" data-i18n="arch_l1_title">Layer 01 · Input Sources</span>
+              <span class="font-mono text-[11px] text-dp-blue">RAG + MCP</span>
+            </div>
+            <ul class="mt-5 space-y-3 text-[13.5px] text-dp-ink">
+              <li class="flex items-center justify-between rounded-lg border border-dp-line bg-white px-3.5 py-2.5">
+                <span data-i18n="arch_in1">Journal PDFs & Zotero</span>
+                <span class="font-mono text-[10.5px] text-dp-muted">Crossref DOI</span>
+              </li>
+              <li class="flex items-center justify-between rounded-lg border border-dp-line bg-white px-3.5 py-2.5">
+                <span data-i18n="arch_in2">Lecture Slides & Lab CSVs</span>
+                <span class="font-mono text-[10.5px] text-dp-muted" data-i18n="arch_in2_tag">Parser</span>
+              </li>
+              <li class="flex items-center justify-between rounded-lg border border-dp-line bg-white px-3.5 py-2.5">
+                <span data-i18n="arch_in3">PKM & Campus Rulebooks</span>
+                <span class="font-mono text-[10.5px] text-dp-muted" data-i18n="arch_in3_tag">Rubric Index</span>
+              </li>
+              <li class="flex items-center justify-between rounded-lg border border-dp-line bg-white px-3.5 py-2.5">
+                <span data-i18n="arch_in4">8-Semester Activity Log</span>
+                <span class="font-mono text-[10.5px] text-dp-muted" data-i18n="arch_in4_tag">Vector Graph</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Tier 2: Anthropic Claude Core (Highlighted) -->
+          <div class="rounded-xl border-2 border-dp-blue bg-white p-6 shadow-sm relative">
+            <div class="flex items-center justify-between border-b border-dp-line pb-4">
+              <span class="font-mono text-[11px] font-bold text-dp-blue uppercase" data-i18n="arch_l2_title">Layer 02 · Claude Core Engine</span>
+              <span class="rounded bg-dp-yellow px-2 py-0.5 font-mono text-[10px] font-bold text-dp-ink">Anthropic API</span>
+            </div>
+            <div class="mt-5 space-y-3">
+              <div class="rounded-lg bg-dp-blueLight/70 border border-blue-200 p-3.5">
+                <p class="font-heading text-[14px] font-bold text-dp-blueDark" data-i18n="arch_c1_t">Dynamic Model Routing</p>
+                <p class="mt-1 text-[12.5px] text-dp-muted" data-i18n="arch_c1_d">Routes complex thesis synthesis & STEM derivations to <strong>Claude 3.7 Sonnet</strong>, and fast committee templates to <strong>Claude 3.5 Haiku</strong>.</p>
+              </div>
+              <div class="rounded-lg bg-dp-surface border border-dp-line p-3.5">
+                <p class="font-heading text-[14px] font-bold text-dp-ink" data-i18n="arch_c2_t">200K Context + Prompt Caching</p>
+                <p class="mt-1 text-[12.5px] text-dp-muted" data-i18n="arch_c2_d">Caches full thesis manuscripts, 50+ reference PDFs, and competition guidelines for instant follow-up queries at 90% lower latency.</p>
+              </div>
+              <div class="rounded-lg bg-dp-yellowTint border border-amber-200 p-3.5">
+                <p class="font-heading text-[14px] font-bold text-amber-900" data-i18n="arch_c3_t">Constitutional Academic Guardrails</p>
+                <p class="mt-1 text-[12.5px] text-amber-800/80" data-i18n="arch_c3_d">Enforces Socratic tutoring (no blind spoon-feeding) and strict DOI citation verification.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tier 3: Verified Student Outputs -->
+          <div class="rounded-xl border border-dp-line bg-dp-surface p-6">
+            <div class="flex items-center justify-between border-b border-dp-line pb-4">
+              <span class="font-mono text-[11px] font-semibold text-dp-muted uppercase" data-i18n="arch_l3_title">Layer 03 · Verified Outputs</span>
+              <span class="font-mono text-[11px] text-emerald-600" data-i18n="arch_l3_badge">Zero Hallucination</span>
+            </div>
+            <ul class="mt-5 space-y-3 text-[13.5px] text-dp-ink">
+              <li class="flex items-center justify-between rounded-lg border border-dp-line bg-white px-3.5 py-2.5">
+                <span data-i18n="arch_out1">LaTeX & APA Reports</span>
+                <span class="font-mono text-[10.5px] text-emerald-600" data-i18n="arch_out1_tag">Page-Cited</span>
+              </li>
+              <li class="flex items-center justify-between rounded-lg border border-dp-line bg-white px-3.5 py-2.5">
+                <span data-i18n="arch_out2">TOR, RAB & Sponsorship Decks</span>
+                <span class="font-mono text-[10.5px] text-dp-blue" data-i18n="arch_out2_tag">Ready-to-Send</span>
+              </li>
+              <li class="flex items-center justify-between rounded-lg border border-dp-line bg-white px-3.5 py-2.5">
+                <span data-i18n="arch_out3">Audited PKM & Case Proposals</span>
+                <span class="font-mono text-[10.5px] text-dp-blue" data-i18n="arch_out3_tag">Rule-Checked</span>
+              </li>
+              <li class="flex items-center justify-between rounded-lg border border-dp-line bg-white px-3.5 py-2.5">
+                <span data-i18n="arch_out4">ATS CV & Thesis Defense Prep</span>
+                <span class="font-mono text-[10.5px] text-amber-600" data-i18n="arch_out4_tag">Career-Ready</span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 4: 8-SEMESTER STUDENT TIMELINE (MABA -> LULUS & KARIR)
+         ========================================== -->
+    <section id="roadmap" class="scroll-mt-20 border-t border-dp-line bg-dp-surface py-20 md:py-24">
+      <div class="mx-auto max-w-[1160px] px-6">
+        <div class="text-center max-w-[640px] mx-auto">
+          <span class="font-mono text-[11px] font-medium uppercase tracking-widest text-dp-blue" data-i18n="road_eyebrow">Continuous Student Lifecycle</span>
+          <h2 class="mt-2 font-heading text-[28px] md:text-[36px] font-bold text-dp-ink" data-i18n="road_title">
+            Designed to stay with you from Semester 1 to your first job.
+          </h2>
+        </div>
+
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-5 gap-4">
+          <div class="rounded-xl border border-dp-line bg-white p-5">
+            <span class="font-mono text-[11px] font-semibold text-dp-blue" data-i18n="st1_sem">SEMESTER 1–2</span>
+            <h3 class="mt-2 font-heading text-[16px] font-bold text-dp-ink" data-i18n="st1_t">Freshman (Maba)</h3>
+            <p class="mt-1.5 text-[13px] text-dp-muted" data-i18n="st1_d">Adapt to university lectures, master foundational coursework, and structure your first practicum reports.</p>
+          </div>
+          <div class="rounded-xl border border-dp-line bg-white p-5">
+            <span class="font-mono text-[11px] font-semibold text-amber-600" data-i18n="st2_sem">SEMESTER 3–4</span>
+            <h3 class="mt-2 font-heading text-[16px] font-bold text-dp-ink" data-i18n="st2_t">Active Organizer</h3>
+            <p class="mt-1.5 text-[13px] text-dp-muted" data-i18n="st2_d">Lead BEM/Hima committees with automated TORs, sponsorship proposals, and RAB budget spreadsheets.</p>
+          </div>
+          <div class="rounded-xl border border-dp-line bg-white p-5">
+            <span class="font-mono text-[11px] font-semibold text-dp-blue" data-i18n="st3_sem">SEMESTER 4–5</span>
+            <h3 class="mt-2 font-heading text-[16px] font-bold text-dp-ink" data-i18n="st3_t">Competition Winner</h3>
+            <p class="mt-1.5 text-[13px] text-dp-muted" data-i18n="st3_d">Submit compliant PKM proposals, scientific papers, and winning business case pitch decks.</p>
+          </div>
+          <div class="rounded-xl border border-dp-line bg-white p-5">
+            <span class="font-mono text-[11px] font-semibold text-amber-600" data-i18n="st4_sem">SEMESTER 6–7</span>
+            <h3 class="mt-2 font-heading text-[16px] font-bold text-dp-ink" data-i18n="st4_t">Magang Berdampak & Career</h3>
+            <p class="mt-1.5 text-[13px] text-dp-muted" data-i18n="st4_d">Convert your campus track record into an ATS-ready CV and practice mock interviews for Magang Berdampak & internships.</p>
+          </div>
+          <div class="rounded-xl border-2 border-dp-yellow bg-white p-5">
+            <span class="font-mono text-[11px] font-bold text-dp-ink" data-i18n="st5_sem">SEMESTER 7–8</span>
+            <h3 class="mt-2 font-heading text-[16px] font-bold text-dp-ink" data-i18n="st5_t">Skripsi & Graduation</h3>
+            <p class="mt-1.5 text-[13px] text-dp-muted" data-i18n="st5_d">Synthesize 50+ journals with verified DOIs, finish your thesis faster, and ace your final defense.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 5: MINIMALIST FAQ
+         ========================================== -->
+    <section id="faq" class="scroll-mt-20 border-t border-dp-line bg-white py-20 md:py-24">
+      <div class="mx-auto max-w-[820px] px-6">
+        <h2 class="font-heading text-[28px] md:text-[34px] font-bold text-dp-ink text-center" data-i18n="faq_heading">Frequently Asked Questions</h2>
+        
+        <div class="mt-10 divide-y divide-dp-line border-y border-dp-line">
+          <div class="py-5">
+            <button type="button" onclick="toggleFaq(0)" class="flex w-full items-center justify-between text-left font-heading text-[15.5px] font-semibold text-dp-ink hover:text-dp-blue">
+              <span data-i18n="faq1_q">How is Diperkuliahan different from using standard ChatGPT or Claude?</span>
+              <span id="faq-icon-0" class="font-mono text-lg text-dp-blue">+</span>
+            </button>
+            <p id="faq-body-0" class="hidden mt-3 text-[14px] leading-relaxed text-dp-muted" data-i18n="faq1_a">
+              General AI chat tools start with a blank prompt and often fabricate academic citations. Diperkuliahan provides 5 pre-configured student agents wired into Crossref DOI verification, Kemendikbud PKM/PIMNAS rules, BEM/organization document builders, and Magang Berdampak ATS career rubrics—while keeping your academic portfolio memory from freshman year to graduation.
+            </p>
+          </div>
+          <div class="py-5">
+            <button type="button" onclick="toggleFaq(1)" class="flex w-full items-center justify-between text-left font-heading text-[15.5px] font-semibold text-dp-ink hover:text-dp-blue">
+              <span data-i18n="faq2_q">Why is Diperkuliahan powered by Anthropic Claude?</span>
+              <span id="faq-icon-1" class="font-mono text-lg text-dp-blue">+</span>
+            </button>
+            <p id="faq-body-1" class="hidden mt-3 text-[14px] leading-relaxed text-dp-muted" data-i18n="faq2_a">
+              We use Claude 3.7 Sonnet and Haiku for their 200K token context window (capable of holding 50+ journal PDFs or an entire thesis manuscript at once), industry-lowest hallucination rates, and Constitutional AI safety principles that support Socratic learning.
+            </p>
+          </div>
+          <div class="py-5">
+            <button type="button" onclick="toggleFaq(2)" class="flex w-full items-center justify-between text-left font-heading text-[15.5px] font-semibold text-dp-ink hover:text-dp-blue">
+              <span data-i18n="faq3_q">Is it safe for academic ethics and university plagiarism policies?</span>
+              <span id="faq-icon-2" class="font-mono text-lg text-dp-blue">+</span>
+            </button>
+            <p id="faq-body-2" class="hidden mt-3 text-[14px] leading-relaxed text-dp-muted" data-i18n="faq3_a">
+              Yes. Diperkuliahan is built as a Socratic co-pilot and research verifier, not a ghostwriting tool. Every literature claim is linked to a verifiable DOI and exact page coordinate so students write original, defensible work.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 6: CLEAN MINIMALIST CTA BANNER (SINGLE "BOOK A DEMO" BUTTON)
+         ========================================== -->
+    <section id="cta" class="border-t border-dp-line bg-dp-surface py-20">
+      <div class="mx-auto max-w-[960px] px-6">
+        <div class="rounded-2xl bg-dp-blue px-8 py-14 text-center text-white shadow-lg relative overflow-hidden">
+          <div class="pointer-events-none absolute -right-12 -top-12 h-48 w-48 rounded-full bg-dp-yellow/20 blur-2xl"></div>
+          <span class="inline-block rounded-full bg-dp-yellow px-3 py-1 font-mono text-[11px] font-bold text-dp-ink uppercase">
+            diperkuliahan.com
+          </span>
+          <h2 class="mt-4 font-heading text-[30px] md:text-[40px] font-bold leading-tight text-white" data-i18n="cta_title">
+            Your entire campus journey, upgraded with 5 AI agents.
+          </h2>
+          <p class="mx-auto mt-3 max-w-[520px] text-[15px] text-blue-100" data-i18n="cta_sub">
+            From your first freshman assignment and Magang Berdampak to your final Skripsi defense and career launch.
+          </p>
+          <div class="mt-8 flex items-center justify-center">
+            <button type="button" onclick="openDemoModal()" class="inline-flex h-12 items-center justify-center rounded-lg bg-dp-yellow px-8 text-[14.5px] font-semibold text-dp-ink shadow-md transition-transform hover:scale-[1.02] cursor-pointer" data-i18n="cta_btn">
+              Book a Demo
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MINIMALIST FOOTER -->
+  <footer class="border-t border-dp-line bg-white py-8">
+    <div class="mx-auto flex max-w-[1160px] flex-col sm:flex-row items-center justify-between gap-4 px-6 text-[13px] text-dp-muted">
+      <div class="flex items-center gap-2.5">
+        <span class="flex h-6 w-6 items-center justify-center rounded bg-dp-blue text-white font-heading font-bold text-xs">d.</span>
+        <span class="font-semibold text-dp-ink">diperkuliahan.com</span>
+        <span>·</span>
+        <span data-i18n="footer_copy">© 2026 All-in-One Student AI Platform.</span>
+      </div>
+      <div class="flex flex-wrap items-center gap-6">
+        <a href="#workspace" class="hover:text-dp-ink transition-colors" data-i18n="footer_ws">Workspace</a>
+        <a href="#agents" class="hover:text-dp-ink transition-colors" data-i18n="footer_ag">5 Agents</a>
+        <button type="button" onclick="openPrivacyModal('privacy')" class="hover:text-dp-ink transition-colors cursor-pointer" data-i18n="footer_privacy">Privacy Policy</button>
+        <button type="button" onclick="openPrivacyModal('terms')" class="hover:text-dp-ink transition-colors cursor-pointer" data-i18n="footer_terms">Terms of Service</button>
+        <a href="mailto:halo@diperkuliahan.com" class="hover:text-dp-ink transition-colors" data-i18n="footer_contact">Contact</a>
+        <a href="/admin/" class="font-mono text-[11px] text-slate-400 hover:text-dp-blue transition-colors">CMS</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================
+       BOOK A DEMO MODAL (NAMA, EMAIL KAMPUS, NAMA KAMPUS, NOMOR WA)
+       ========================================== -->
+  <div id="demo-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4">
+    <div class="relative w-full max-w-[460px] rounded-2xl border border-dp-line bg-white p-6 md:p-8 shadow-2xl fade-in">
+      <!-- Close Button -->
+      <button type="button" onclick="closeDemoModal()" aria-label="Close modal" class="absolute top-5 right-5 flex h-8 w-8 items-center justify-center rounded-lg border border-dp-line text-dp-muted hover:bg-dp-surface hover:text-dp-ink">
+        ✕
+      </button>
+
+      <!-- Modal Form View -->
+      <div id="modal-form-view">
+        <div class="inline-flex items-center gap-2 rounded-md bg-dp-blueLight px-2.5 py-1 font-mono text-[10.5px] font-semibold text-dp-blue">
+          <span>diperkuliahan.com</span>
+          <span>·</span>
+          <span data-i18n="modal_badge">DEMO ACCESS</span>
+        </div>
+        <h3 class="mt-3 font-heading text-[22px] font-bold text-dp-ink" data-i18n="modal_title">Book a Demo</h3>
+        <p class="mt-1 text-[13.5px] text-dp-muted" data-i18n="modal_desc">
+          Fill in your campus details below and our team will send your workspace demo access directly via WhatsApp & Email.
         </p>
 
-        <!-- Form Waitlist / Demo -->
-        <div id="demo" class="max-w-md mx-auto bg-white p-2 rounded-xl border border-slate-200 shadow-sm flex glow">
-            <input type="email" placeholder="Masukkan email kampus Anda..." class="w-full pl-4 pr-2 py-3 rounded-lg outline-none text-slate-700 placeholder-slate-400 bg-transparent" required>
-            <button onclick="alert('Terima kasih! Tim kami akan segera menghubungi Anda untuk jadwal demo interaktif Diperkuliahan AI.')" class="bg-claude text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition whitespace-nowrap">
-                Book Demo
-            </button>
+        <form id="demo-form" name="diperkuliahan-demo" data-netlify="true" onsubmit="submitDemoForm(event)" class="mt-6 space-y-4">
+          <input type="hidden" name="form-name" value="diperkuliahan-demo">
+          <div>
+            <label for="input-name" class="block text-[12.5px] font-medium text-dp-ink mb-1.5" data-i18n="label_name">Full Name</label>
+            <input id="input-name" name="nama" type="text" required class="w-full rounded-lg border border-dp-line bg-dp-surface px-3.5 py-2.5 text-[13.5px] text-dp-ink outline-none focus:border-dp-blue focus:bg-white focus:ring-2 focus:ring-dp-blue/15" data-i18n-placeholder="ph_name" placeholder="e.g. Rizky Pratama">
+          </div>
+
+          <div>
+            <label for="input-email" class="block text-[12.5px] font-medium text-dp-ink mb-1.5" data-i18n="label_email">Campus Email (.ac.id / .edu)</label>
+            <input id="input-email" name="email_kampus" type="email" required class="w-full rounded-lg border border-dp-line bg-dp-surface px-3.5 py-2.5 text-[13.5px] text-dp-ink outline-none focus:border-dp-blue focus:bg-white focus:ring-2 focus:ring-dp-blue/15" data-i18n-placeholder="ph_email" placeholder="e.g. rizky@student.ac.id">
+          </div>
+
+          <div>
+            <label for="input-campus" class="block text-[12.5px] font-medium text-dp-ink mb-1.5" data-i18n="label_campus">University / Campus Name</label>
+            <input id="input-campus" name="nama_kampus" type="text" required class="w-full rounded-lg border border-dp-line bg-dp-surface px-3.5 py-2.5 text-[13.5px] text-dp-ink outline-none focus:border-dp-blue focus:bg-white focus:ring-2 focus:ring-dp-blue/15" data-i18n-placeholder="ph_campus" placeholder="e.g. Universitas Indonesia">
+          </div>
+
+          <div>
+            <label for="input-wa" class="block text-[12.5px] font-medium text-dp-ink mb-1.5" data-i18n="label_wa">WhatsApp Number</label>
+            <input id="input-wa" name="nomor_wa" type="tel" required class="w-full rounded-lg border border-dp-line bg-dp-surface px-3.5 py-2.5 text-[13.5px] text-dp-ink outline-none focus:border-dp-blue focus:bg-white focus:ring-2 focus:ring-dp-blue/15" data-i18n-placeholder="ph_wa" placeholder="e.g. 0812-3456-7890">
+          </div>
+
+          <p class="text-[11.5px] text-dp-muted leading-snug">
+            <span data-i18n="modal_privacy_note">By submitting, you agree to our</span>
+            <button type="button" onclick="openPrivacyModal('privacy')" class="text-dp-blue underline cursor-pointer" data-i18n="footer_privacy">Privacy Policy</button>.
+          </p>
+
+          <button id="demo-submit-btn" type="submit" class="mt-2 w-full rounded-lg bg-dp-blue py-3 text-[14px] font-semibold text-white shadow-sm transition-colors hover:bg-dp-blueDark cursor-pointer disabled:opacity-60" data-i18n="modal_submit">
+            Book a Demo
+          </button>
+        </form>
+      </div>
+
+      <!-- Modal Success View -->
+      <div id="modal-success-view" class="hidden text-center py-6">
+        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-dp-yellow text-dp-ink font-bold text-xl">
+          ✓
         </div>
-        <p class="text-xs text-slate-400 mt-4">Pendaftaran gelombang pertama dibatasi untuk 100 mahasiswa.</p>
-    </main>
+        <h3 class="mt-4 font-heading text-[20px] font-bold text-dp-ink" data-i18n="modal_success_title">Demo Request Received!</h3>
+        <p id="modal-success-summary" class="mt-2 text-[13.5px] text-dp-muted leading-relaxed"></p>
+        <button type="button" onclick="closeDemoModal()" class="mt-6 inline-flex h-10 items-center justify-center rounded-lg bg-dp-blue px-6 text-[13.5px] font-medium text-white hover:bg-dp-blueDark" data-i18n="modal_close_btn">
+          Back to Page
+        </button>
+      </div>
+    </div>
+  </div>
 
-    <!-- UI Mockup / Dashboard Preview -->
-    <section class="relative z-10 max-w-5xl mx-auto px-6 pb-24">
-        <div class="bg-dark rounded-2xl p-2 shadow-2xl overflow-hidden ring-1 ring-white/10">
-            <div class="bg-slate-900 rounded-xl h-96 flex flex-col items-center justify-center border border-slate-800 relative overflow-hidden">
-                <i class="fas fa-terminal text-4xl text-slate-700 mb-4"></i>
-                <h3 class="text-white font-semibold text-lg">AI Dashboard Interface</h3>
-                <p class="text-slate-500 text-sm mt-2">Sedang dalam tahap pengembangan aktif...</p>
-                
-                <!-- Elemen dekoratif antarmuka -->
-                <div class="absolute top-4 left-4 flex gap-2">
-                    <div class="w-3 h-3 rounded-full bg-slate-700"></div>
-                    <div class="w-3 h-3 rounded-full bg-slate-700"></div>
-                    <div class="w-3 h-3 rounded-full bg-slate-700"></div>
-                </div>
-            </div>
+  
+  <!-- ==========================================
+       PRIVACY POLICY & TERMS OF SERVICE MODAL (BILINGUAL EN/ID)
+       ========================================== -->
+  <div id="legal-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4">
+    <div class="relative w-full max-w-[680px] max-h-[85vh] flex flex-col rounded-2xl border border-dp-line bg-white shadow-2xl fade-in overflow-hidden">
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between border-b border-dp-line px-6 py-4 bg-dp-surface">
+        <div class="flex items-center gap-2">
+          <button type="button" id="tab-legal-privacy" onclick="switchLegalTab('privacy')" class="rounded-lg px-3 py-1.5 text-[12.5px] font-semibold bg-dp-blue text-white cursor-pointer" data-i18n="footer_privacy">Privacy Policy</button>
+          <button type="button" id="tab-legal-terms" onclick="switchLegalTab('terms')" class="rounded-lg px-3 py-1.5 text-[12.5px] font-semibold text-dp-muted hover:text-dp-ink cursor-pointer" data-i18n="footer_terms">Terms of Service</button>
         </div>
-    </section>
+        <button type="button" onclick="closePrivacyModal()" aria-label="Close legal modal" class="flex h-8 w-8 items-center justify-center rounded-lg border border-dp-line bg-white text-dp-muted hover:text-dp-ink cursor-pointer">
+          ✕
+        </button>
+      </div>
 
-    <!-- Fitur Inti (3 Kolom) -->
-    <section class="relative z-10 bg-white border-y border-slate-200 py-24">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-dark mb-4">Satu platform, ragam solusi.</h2>
-                <p class="text-slate-500">Dirancang khusus untuk alur kerja akademik dan persiapan karir.</p>
-            </div>
+      <!-- Modal Scrollable Content -->
+      <div id="legal-modal-body" class="p-6 md:p-8 overflow-y-auto space-y-5 text-[13.5px] leading-relaxed text-dp-muted">
+        <!-- Populated dynamically via JS in EN or ID -->
+      </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <div class="text-left">
-                    <div class="w-12 h-12 rounded-lg bg-orange-50 flex items-center justify-center text-claude text-xl mb-6 border border-orange-100">
-                        <i class="fas fa-book-open"></i>
-                    </div>
-                    <h3 class="font-bold text-lg text-dark mb-2">Bedah Jurnal Instan</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">Unggah jurnal PDF, biarkan AI kami mengekstrak metodologi, hasil penelitian, dan kesimpulan utamanya secara otomatis.</p>
-                </div>
-                <div class="text-left">
-                    <div class="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 text-xl mb-6 border border-blue-100">
-                        <i class="fas fa-pen-nib"></i>
-                    </div>
-                    <h3 class="font-bold text-lg text-dark mb-2">Asisten Skripsi & Esai</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">Dapatkan kerangka tulisan terstruktur dan hindari *writer's block*. AI kami membantu Anda merangkai argumen akademik yang kuat.</p>
-                </div>
-                <div class="text-left">
-                    <div class="w-12 h-12 rounded-lg bg-green-50 flex items-center justify-center text-green-600 text-xl mb-6 border border-green-100">
-                        <i class="fas fa-briefcase"></i>
-                    </div>
-                    <h3 class="font-bold text-lg text-dark mb-2">ATS Resume Review</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">Persiapkan karir dan magang dengan evaluasi CV otomatis. Dapatkan skor kelayakan dan saran perbaikan langsung dari AI.</p>
-                </div>
-            </div>
+      <!-- Modal Footer -->
+      <div class="flex items-center justify-between border-t border-dp-line bg-dp-surface px-6 py-3.5 text-[12px] text-dp-muted">
+        <span data-i18n="legal_updated">Last Updated: October 2026</span>
+        <button type="button" onclick="closePrivacyModal()" class="rounded-lg bg-dp-blue px-4 py-1.5 text-[12.5px] font-medium text-white hover:bg-dp-blueDark cursor-pointer" data-i18n="legal_close">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       COMPLETE BILINGUAL STATE & INTERACTIVE LOGIC
+       ========================================== -->
+  <script>
+    let currentLang = 'en';
+    let currentAgentIdx = 0;
+
+    // Fully Bilingual Workspace Scenarios (EN & ID)
+    const workspaceData = {
+      en: [
+        // 0: Tugas Mahasiswa
+        {
+          breadcrumb: "01-coursework-agent",
+          placeholder: "Ask Coursework Agent or attach lab CSV...",
+          tool: "MCP Tool: Socratic Solver + CSV Regression",
+          badgeText: "Socratic & Verified",
+          chat: [
+            { role: "Student Prompt", text: "Clean outliers from my thermodynamics lab CSV and help me derive Fourier's conduction law for my report." },
+            { role: "Coursework Agent (Claude 3.7 Sonnet)", text: "I detected 2 sensor spikes at t=140s (>3σ) and removed them. Before I generate the final derivation, Socratic check: how does heat flux change if the material's thermal conductivity k is doubled?" }
+          ],
+          artifactTitle: "LAB REPORT ARTIFACT · PHY-204",
+          artifactBadge: "R² = 0.994",
+          artifactLines: [
+            "✓ Dataset cleaned (48 valid rows)",
+            "✓ Linear regression plot exported (PNG & LaTeX)",
+            "✓ 12 Active Recall Flashcards created from lecture slides"
+          ]
+        },
+        // 1: Organisasi Mahasiswa
+        {
+          breadcrumb: "02-organization-agent",
+          placeholder: "Draft event TOR, RAB budget, or sponsorship proposal...",
+          tool: "MCP Tool: BEM Document & RAB Engine",
+          badgeText: "Socratic & Verified",
+          chat: [
+            { role: "Student Prompt", text: "Create a Terms of Reference (TOR), 3-tier sponsorship package, and RAB budget for our Hima National Seminar (target Rp 45M)." },
+            { role: "Organization Agent (Claude 3.7 Sonnet)", text: "Generated your complete seminar kit: Platinum/Gold/Silver sponsor tiers, balanced RAB spreadsheet, plus 4 official permit letters for the Dean's office." }
+          ],
+          artifactTitle: "COMMITTEE KIT · HIMA SEMINAR 2026",
+          artifactBadge: "Rp 45.000.000",
+          artifactLines: [
+            "✓ Event TOR & Rundown Timeline (DOCX)",
+            "✓ Balanced RAB Budget & Sponsor Matrix (XLSX)",
+            "✓ 4 Official Letters + LPJ Accountability Template"
+          ]
+        },
+        // 2: Lomba & Prestasi
+        {
+          breadcrumb: "03-competition-agent",
+          placeholder: "Upload PKM draft or business case brief...",
+          tool: "MCP Tool: Belmawa PKM Auditor + Jury Sim",
+          badgeText: "Socratic & Verified",
+          chat: [
+            { role: "Student Prompt", text: "Audit our PKM-KC proposal against 2026 Kemendikbud guidelines and critique our business case market sizing slide." },
+            { role: "Competition Agent (Claude 3.7 Sonnet)", text: "Compliance Audit: 100% pass on page limits, RAB caps, and APA bibliography. For Slide 6, let's tighten your SAM/SOM conversion rate before running a simulated PIMNAS judge Q&A." }
+          ],
+          artifactTitle: "COMPETITION AUDIT · PKM & CASE",
+          artifactBadge: "96/100 Score",
+          artifactLines: [
+            "✓ Kemendikbud Belmawa Formatting Check: Passed",
+            "✓ Novelty Check: 0 duplicate PIMNAS titles (2021–2025)",
+            "✓ 10 Tough Jury Defense Questions Generated"
+          ]
+        },
+        // 3: Magang Berdampak & Karir
+        {
+          breadcrumb: "04-career-agent",
+          placeholder: "Paste target Magang Berdampak JD or start mock interview...",
+          tool: "MCP Tool: ATS Resume Optimizer + Interviewer",
+          badgeText: "Socratic & Verified",
+          chat: [
+            { role: "Student Prompt", text: "Tailor my CV for the Magang Berdampak Data Analyst position using my Semester 4 lab project and Hima treasurer experience." },
+            { role: "Career Agent (Claude 3.7 Sonnet)", text: "Pulled 2 projects from your Student Memory Graph and rewrote 6 bullet points using the STAR framework. Your ATS match score rose from 64% to 94%." }
+          ],
+          artifactTitle: "CAREER ARTIFACT · ATS RESUME",
+          artifactBadge: "94% ATS Match",
+          artifactLines: [
+            "✓ 6 STAR-Method Impact Bullets Generated",
+            "✓ Keyword Alignment with Magang Berdampak JD",
+            "✓ Interactive HR & User Mock Interview Ready"
+          ]
+        },
+        // 4: Skripsi
+        {
+          breadcrumb: "05-thesis-agent",
+          placeholder: "Drop 50+ journal PDFs or ask for research gaps...",
+          tool: "MCP Tool: Crossref DOI Verifier + 200K Context",
+          badgeText: "Socratic & Verified",
+          chat: [
+            { role: "Student Prompt", text: "Synthesize these 25 Q1 journals for Chapter 2 of my Skripsi and identify a clear research gap." },
+            { role: "Thesis Agent (Claude 3.7 Sonnet)", text: "Processed 25 PDFs (164,200 tokens cached). Built your Chapter 2 synthesis table and verified all 25 DOIs via Crossref with zero fabricated citations." }
+          ],
+          artifactTitle: "THESIS MATRIX · CHAPTER 2 SKRIPSI",
+          artifactBadge: "25/25 DOIs Verified",
+          artifactLines: [
+            "✓ Research Gap Mapped (p. 14 coordinates linked)",
+            "✓ APA 7th Bibliography 100% Crossref-Verified",
+            "✓ Sempro & Sidang Examiner Q&A Simulation Ready"
+          ]
+        }
+      ],
+      id: [
+        // 0: Tugas Mahasiswa (ID)
+        {
+          breadcrumb: "01-agen-tugas-kuliah",
+          placeholder: "Tanya Agen Tugas atau lampirkan CSV praktikum...",
+          tool: "Alat MCP: Solver Sokratik + Regresi CSV",
+          badgeText: "Sokratik & Terverifikasi",
+          chat: [
+            { role: "Prompt Mahasiswa", text: "Bersihkan outlier dari CSV praktikum termodinamika saya dan bantu turunkan rumus konduksi Fourier untuk laporan." },
+            { role: "Agen Tugas & Lab (Claude 3.7 Sonnet)", text: "Saya mendeteksi 2 lonjakan sensor pada t=140s (>3σ) dan membersihkannya. Sebelum menyusun penurunan akhir, cek Sokratik: bagaimana perubahan fluks kalor jika konduktivitas termal k dinaikkan dua kali lipat?" }
+          ],
+          artifactTitle: "ARTEFAK LAPORAN LAB · FIS-204",
+          artifactBadge: "R² = 0.994",
+          artifactLines: [
+            "✓ Dataset dibersihkan (48 baris valid)",
+            "✓ Grafik regresi linier diekspor (PNG & LaTeX)",
+            "✓ 12 Flashcard Ujian dibuat dari slide dosen"
+          ]
+        },
+        // 1: Organisasi Mahasiswa (ID)
+        {
+          breadcrumb: "02-agen-organisasi",
+          placeholder: "Buat draf TOR acara, anggaran RAB, atau proposal sponsor...",
+          tool: "Alat MCP: Mesin Dokumen BEM & RAB",
+          badgeText: "Sokratik & Terverifikasi",
+          chat: [
+            { role: "Prompt Mahasiswa", text: "Buatkan Kerangka Acuan Kerja (TOR), paket sponsorship 3 tier, dan anggaran RAB untuk Seminar Nasional Hima (target Rp 45 Juta)." },
+            { role: "Agen Organisasi (Claude 3.7 Sonnet)", text: "Kit kepanitiaan seminar telah siap: paket sponsor Platinum/Gold/Silver, tabel RAB seimbang, serta 4 draf surat izin resmi untuk Dekanat." }
+          ],
+          artifactTitle: "KIT KEPANITIAAN · SEMINAR HIMA 2026",
+          artifactBadge: "Rp 45.000.000",
+          artifactLines: [
+            "✓ TOR Acara & Linimasa Rundown (DOCX)",
+            "✓ Anggaran RAB Seimbang & Matriks Sponsor (XLSX)",
+            "✓ 4 Surat Resmi + Template LPJ Kepanitiaan"
+          ]
+        },
+        // 2: Lomba & Prestasi (ID)
+        {
+          breadcrumb: "03-agen-lomba-pkm",
+          placeholder: "Unggah draf PKM atau brief business case...",
+          tool: "Alat MCP: Auditor PKM Belmawa + Simulasi Juri",
+          badgeText: "Sokratik & Terverifikasi",
+          chat: [
+            { role: "Prompt Mahasiswa", text: "Audit proposal PKM-KC kami terhadap pedoman Kemendikbud 2026 dan evaluasi slide market sizing business case kami." },
+            { role: "Agen Lomba & PKM (Claude 3.7 Sonnet)", text: "Audit Kepatuhan: Lolos 100% pada batas halaman, plafon RAB, dan daftar pustaka APA. Untuk Slide 6, mari pertajam asumsi konversi SAM/SOM sebelum memulai simulasi tanya-jawab juri PIMNAS." }
+          ],
+          artifactTitle: "AUDIT KOMPETISI · PKM & BUSINESS CASE",
+          artifactBadge: "Skor 96/100",
+          artifactLines: [
+            "✓ Cek Format Pedoman Belmawa Kemendikbud: Lolos",
+            "✓ Cek Kebaruan: 0 duplikasi judul PIMNAS (2021–2025)",
+            "✓ 10 Pertanyaan Kritis Simulasi Juri Dibuat"
+          ]
+        },
+        // 3: Magang Berdampak & Karir (ID)
+        {
+          breadcrumb: "04-agen-magang-karir",
+          placeholder: "Tempel kualifikasi Magang Berdampak atau mulai simulasi interview...",
+          tool: "Alat MCP: Optimasi CV ATS + Pewawancara AI",
+          badgeText: "Sokratik & Terverifikasi",
+          chat: [
+            { role: "Prompt Mahasiswa", text: "Sesuaikan CV saya untuk posisi Data Analyst di program Magang Berdampak memakai proyek lab Semester 4 dan pengalaman bendahara Hima." },
+            { role: "Agen Magang & Karir (Claude 3.7 Sonnet)", text: "Mengambil 2 proyek dari Graf Memori Mahasiswa Anda dan menulis ulang 6 poin pencapaian dengan metode STAR. Skor kecocokan ATS naik dari 64% menjadi 94%." }
+          ],
+          artifactTitle: "ARTEFAK KARIR · CV LOLOS ATS",
+          artifactBadge: "94% Cocok ATS",
+          artifactLines: [
+            "✓ 6 Poin Pencapaian Metode STAR Dibuat",
+            "✓ Penyelarasan Kata Kunci Lowongan Magang Berdampak",
+            "✓ Simulasi Wawancara HR & User Siap Dijalankan"
+          ]
+        },
+        // 4: Skripsi (ID)
+        {
+          breadcrumb: "05-agen-skripsi",
+          placeholder: "Masukkan 50+ PDF jurnal atau tanyakan research gap...",
+          tool: "Alat MCP: Verifikator DOI Crossref + Konteks 200K",
+          badgeText: "Sokratik & Terverifikasi",
+          chat: [
+            { role: "Prompt Mahasiswa", text: "Sintesis 25 jurnal Q1 ini untuk Bab 2 Skripsi saya dan temukan celah penelitian (research gap) yang kuat." },
+            { role: "Agen Skripsi (Claude 3.7 Sonnet)", text: "Memproses 25 PDF (164.200 token tersimpan di cache). Tabel matriks sintesis Bab 2 selesai dibuat dan seluruh 25 DOI telah diverifikasi via Crossref tanpa sitasi palsu." }
+          ],
+          artifactTitle: "MATRIKS SKRIPSI · KAJIAN PUSTAKA BAB 2",
+          artifactBadge: "25/25 DOI Valid",
+          artifactLines: [
+            "✓ Research Gap Dipetakan (tertaut halaman 14)",
+            "✓ Daftar Pustaka APA 7th 100% Terverifikasi Crossref",
+            "✓ Simulasi Tanya-Jawab Penguji Sempro & Sidang Siap"
+          ]
+        }
+      ]
+    };
+
+    // Complete Bilingual Dictionary covering every static element on the page
+    const i18n = {
+      en: {
+        nav_workspace: "Interactive Workspace",
+        nav_agents: "5 Student Agents",
+        nav_arch: "Claude Engine",
+        nav_roadmap: "8-Semester Flow",
+        nav_faq: "FAQ",
+        nav_cta: "Book a Demo",
+        hero_badge: "Built on Anthropic Claude · All-in-One Student Intelligence",
+        hero_title: 'One minimalist workspace.<br><span class="text-dp-blue">Five AI agents</span> for your entire university journey.',
+        hero_subtitle: "From freshman assignments and campus organizations to national competitions, Magang Berdampak internships, and your final thesis. Everything connected in one distraction-free academic brain.",
+        hero_btn_1: "Book a Demo",
+        hero_btn_2: "Try Interactive Workspace",
+        ws_model_label: "Model:",
+        ws_ctx_badge: "200K Context Cached",
+        ws_sidebar_label: "Select Specialist Agent",
+        ag0_nav: "Coursework & Lab",
+        ag0_sub: "Assignments & Lab Reports",
+        ag1_nav: "Organization (BEM)",
+        ag1_sub: "Events, TOR, RAB & LPJ",
+        ag2_nav: "Competitions & PKM",
+        ag2_sub: "Awards, LKTI & Case Deck",
+        ag3_nav: "Internship & Career",
+        ag3_sub: "ATS CV & Magang Berdampak",
+        ag4_nav: "Thesis (Skripsi)",
+        ag4_sub: "Journal Synthesis & DOIs",
+        ws_memory_title: "Student Memory Graph",
+        ws_memory_note: "Synced across semesters: 14 courses, 2 BEM projects, 1 PKM grant, and 28 thesis PDFs.",
+        ws_run_btn: "Run ↵",
+        ws_verified_badge: "Verified ✓",
+        bento_eyebrow: "Five Dedicated AI Co-Pilots",
+        bento_title: "Built for the 5 real problems every student faces.",
+        bento_sub: "No bloated menus. Each agent has its own specialized tools, templates, and academic guardrails.",
+        b1_badge: "01 · COURSEWORK",
+        b1_title: "Coursework & Lab Reports",
+        b1_desc: "Understand tough lecture derivations Socratically, clean experimental CSV datasets, debug code, and format structured practicum reports.",
+        b1_t1: "Socratic Tutor",
+        b1_t2: "Lab CSV Plotter",
+        b1_t3: "Exam Flashcards",
+        b2_badge: "02 · ORGANIZATION",
+        b2_title: "Campus Organizations (BEM/Hima)",
+        b2_desc: "Run BEM, Hima, and UKM without administrative burnout. Generate event TORs, tiered sponsorship proposals, RAB budgets, and LPJ reports.",
+        b2_t1: "TOR & Proposal",
+        b2_t2: "RAB Generator",
+        b2_t3: "Official Letters",
+        b3_badge: "03 · COMPETITIONS",
+        b3_title: "Competitions, PKM & Achievements",
+        b3_desc: "Turn ideas into national awards. Audit proposals against Kemendikbud PKM/PIMNAS rules, structure LKTI papers, and sharpen business case decks.",
+        b3_t1: "PKM Rule Audit",
+        b3_t2: "Business Case",
+        b3_t3: "Jury Q&A Sim",
+        b4_badge: "04 · INTERNSHIP & CAREER",
+        b4_meta: "Magang Berdampak · MT · Full-Time",
+        b4_title: "Magang Berdampak & Career Prep",
+        b4_desc: "Automatically transforms your coursework projects, organization leadership, and competition wins into high-scoring ATS resumes, portfolio case studies, and interactive HR/User mock interviews for Magang Berdampak and graduate roles.",
+        b4_t1: "ATS CV Scorer",
+        b4_t2: "STAR Bullet Rewriter",
+        b4_t3: "Live Mock Interview",
+        b5_badge: "05 · THESIS (SKRIPSI)",
+        b5_meta: "200K Context · Zero Fake DOIs",
+        b5_title: "Thesis (Skripsi) & Final Defense",
+        b5_desc: "Synthesize 50+ Q1/SINTA journals simultaneously, discover defensible research gaps, build Chapter 2 literature matrices with 100% verified Crossref DOIs, and practice with a simulated thesis defense examiner.",
+        b5_t1: "Multi-PDF Synthesis",
+        b5_t2: "DOI Citation Guardrail",
+        b5_t3: "Sempro/Sidang Simulator",
+        arch_eyebrow: "System Architecture",
+        arch_title: "Why we build natively on Anthropic Claude.",
+        arch_desc: "University workflows require deep reasoning across massive documents and strict adherence to academic honesty. Here is how our intelligence layer operates under the hood.",
+        arch_l1_title: "Layer 01 · Input Sources",
+        arch_in1: "Journal PDFs & Zotero",
+        arch_in2: "Lecture Slides & Lab CSVs",
+        arch_in2_tag: "Parser",
+        arch_in3: "PKM & Campus Rulebooks",
+        arch_in3_tag: "Rubric Index",
+        arch_in4: "8-Semester Activity Log",
+        arch_in4_tag: "Vector Graph",
+        arch_l2_title: "Layer 02 · Claude Core Engine",
+        arch_c1_t: "Dynamic Model Routing",
+        arch_c1_d: "Routes complex thesis synthesis & STEM derivations to <strong>Claude 3.7 Sonnet</strong>, and fast committee templates to <strong>Claude 3.5 Haiku</strong>.",
+        arch_c2_t: "200K Context + Prompt Caching",
+        arch_c2_d: "Caches full thesis manuscripts, 50+ reference PDFs, and competition guidelines for instant follow-up queries at 90% lower latency.",
+        arch_c3_t: "Constitutional Academic Guardrails",
+        arch_c3_d: "Enforces Socratic tutoring (no blind spoon-feeding) and strict DOI citation verification.",
+        arch_l3_title: "Layer 03 · Verified Outputs",
+        arch_l3_badge: "Zero Hallucination",
+        arch_out1: "LaTeX & APA Reports",
+        arch_out1_tag: "Page-Cited",
+        arch_out2: "TOR, RAB & Sponsorship Decks",
+        arch_out2_tag: "Ready-to-Send",
+        arch_out3: "Audited PKM & Case Proposals",
+        arch_out3_tag: "Rule-Checked",
+        arch_out4: "ATS CV & Thesis Defense Prep",
+        arch_out4_tag: "Career-Ready",
+        road_eyebrow: "Continuous Student Lifecycle",
+        road_title: "Designed to stay with you from Semester 1 to your first job.",
+        st1_sem: "SEMESTER 1–2",
+        st1_t: "Freshman (Maba)",
+        st1_d: "Adapt to university lectures, master foundational coursework, and structure your first practicum reports.",
+        st2_sem: "SEMESTER 3–4",
+        st2_t: "Active Organizer",
+        st2_d: "Lead BEM/Hima committees with automated TORs, sponsorship proposals, and RAB budget spreadsheets.",
+        st3_sem: "SEMESTER 4–5",
+        st3_t: "Competition Winner",
+        st3_d: "Submit compliant PKM proposals, scientific papers, and winning business case pitch decks.",
+        st4_sem: "SEMESTER 6–7",
+        st4_t: "Magang Berdampak & Career",
+        st4_d: "Convert your campus track record into an ATS-ready CV and practice mock interviews for Magang Berdampak & internships.",
+        st5_sem: "SEMESTER 7–8",
+        st5_t: "Skripsi & Graduation",
+        st5_d: "Synthesize 50+ journals with verified DOIs, finish your thesis faster, and ace your final defense.",
+        faq_heading: "Frequently Asked Questions",
+        faq1_q: "How is Diperkuliahan different from using standard ChatGPT or Claude?",
+        faq1_a: "General AI chat tools start with a blank prompt and often fabricate academic citations. Diperkuliahan provides 5 pre-configured student agents wired into Crossref DOI verification, Kemendikbud PKM/PIMNAS rules, BEM/organization document builders, and Magang Berdampak ATS career rubrics—while keeping your academic portfolio memory from freshman year to graduation.",
+        faq2_q: "Why is Diperkuliahan powered by Anthropic Claude?",
+        faq2_a: "We use Claude 3.7 Sonnet and Haiku for their 200K token context window (capable of holding 50+ journal PDFs or an entire thesis manuscript at once), industry-lowest hallucination rates, and Constitutional AI safety principles that support Socratic learning.",
+        faq3_q: "Is it safe for academic ethics and university plagiarism policies?",
+        faq3_a: "Yes. Diperkuliahan is built as a Socratic co-pilot and research verifier, not a ghostwriting tool. Every literature claim is linked to a verifiable DOI and exact page coordinate so students write original, defensible work.",
+        cta_title: "Your entire campus journey, upgraded with 5 AI agents.",
+        cta_sub: "From your first freshman assignment and Magang Berdampak to your final Skripsi defense and career launch.",
+        cta_btn: "Book a Demo",
+        footer_copy: "© 2026 All-in-One Student AI Platform.",
+        footer_ws: "Workspace",
+        footer_ag: "5 Agents",
+        footer_arch: "Claude Architecture",
+        modal_badge: "DEMO ACCESS",
+        modal_title: "Book a Demo",
+        modal_desc: "Fill in your campus details below and our team will send your workspace demo access directly via WhatsApp & Email.",
+        label_name: "Full Name",
+        ph_name: "e.g. Rizky Pratama",
+        label_email: "Campus Email (.ac.id / .edu)",
+        ph_email: "e.g. rizky@student.ac.id",
+        label_campus: "University / Campus Name",
+        ph_campus: "e.g. Universitas Indonesia",
+        label_wa: "WhatsApp Number",
+        ph_wa: "e.g. 0812-3456-7890",
+        modal_submit: "Book a Demo",
+        modal_submitting: "Sending...",
+        modal_privacy_note: "By submitting, you agree to our",
+        modal_success_title: "Demo Request Received!",
+        modal_close_btn: "Back to Page",
+        footer_privacy: "Privacy Policy",
+        footer_terms: "Terms of Service",
+        footer_contact: "Contact",
+        legal_updated: "Last Updated: October 2026",
+        legal_close: "Close"
+      },
+      id: {
+        nav_workspace: "Workspace Interaktif",
+        nav_agents: "5 Agen Mahasiswa",
+        nav_arch: "Mesin Claude",
+        nav_roadmap: "Alur 8 Semester",
+        nav_faq: "Tanya Jawab",
+        nav_cta: "Book a Demo",
+        hero_badge: "Dibangun di Atas Anthropic Claude · Inteligensi Mahasiswa All-in-One",
+        hero_title: 'Satu workspace minimalis.<br><span class="text-dp-blue">Lima Agen AI</span> dari Maba hingga lulus & berkarir.',
+        hero_subtitle: "Mulai dari tugas kuliah harian, kepanitiaan BEM/Hima, lomba PKM/nasional, program Magang Berdampak, hingga skripsi. Semuanya terhubung dalam satu ruang kerja bebas distraksi.",
+        hero_btn_1: "Book a Demo",
+        hero_btn_2: "Coba Workspace Interaktif",
+        ws_model_label: "Model:",
+        ws_ctx_badge: "Konteks 200K Tersimpan",
+        ws_sidebar_label: "Pilih Agen Spesialis",
+        ag0_nav: "Tugas & Praktikum",
+        ag0_sub: "Materi, Rumus & Laporan Lab",
+        ag1_nav: "Organisasi (BEM/Hima)",
+        ag1_sub: "Proker, TOR, RAB & LPJ",
+        ag2_nav: "Lomba & Prestasi",
+        ag2_sub: "PKM, LKTI & Business Case",
+        ag3_nav: "Magang & Karir",
+        ag3_sub: "CV ATS & Magang Berdampak",
+        ag4_nav: "Skripsi & Tugas Akhir",
+        ag4_sub: "Sintesis Jurnal, DOI & Sidang",
+        ws_memory_title: "Graf Memori Mahasiswa",
+        ws_memory_note: "Tersinkronisasi lintas semester: 14 mata kuliah, 2 proker BEM, 1 hibah PKM, dan 28 PDF skripsi.",
+        ws_run_btn: "Jalankan ↵",
+        ws_verified_badge: "Terverifikasi ✓",
+        bento_eyebrow: "Lima Co-Pilot Spesialis Mahasiswa",
+        bento_title: "Dirancang khusus untuk 5 masalah utama mahasiswa.",
+        bento_sub: "Tanpa menu yang rumit. Setiap agen memiliki kakas, template, dan pagar pengaman akademik tersendiri.",
+        b1_badge: "01 · TUGAS KULIAH",
+        b1_title: "Tugas Mahasiswa & Praktikum",
+        b1_desc: "Pahami penurunan rumus kuliah secara Sokratik, bersihkan data CSV praktikum, debug koding, dan susun laporan praktikum terstruktur.",
+        b1_t1: "Tutor Sokratik",
+        b1_t2: "Plotter CSV Lab",
+        b1_t3: "Flashcard Ujian",
+        b2_badge: "02 · ORGANISASI",
+        b2_title: "Organisasi & Kepanitiaan Kampus",
+        b2_desc: "Jalankan BEM, Hima, dan UKM tanpa lelah administrasi. Buat TOR acara, proposal sponsorship, anggaran RAB, hingga LPJ secara otomatis.",
+        b2_t1: "TOR & Proposal",
+        b2_t2: "Generator RAB",
+        b2_t3: "Surat Resmi",
+        b3_badge: "03 · LOMBA & PKM",
+        b3_title: "Lomba, PKM & Prestasi",
+        b3_desc: "Ubah ide menjadi juara nasional. Audit kepatuhan pedoman PKM/PIMNAS Kemendikbud, susun LKTI, dan pertajam pitch deck business case.",
+        b3_t1: "Audit Aturan PKM",
+        b3_t2: "Business Case",
+        b3_t3: "Simulasi Juri",
+        b4_badge: "04 · MAGANG & KARIR",
+        b4_meta: "Magang Berdampak · MT · Full-Time",
+        b4_title: "Persiapan Magang Berdampak & Karir",
+        b4_desc: "Otomatis mengubah rekam jejak tugas proyek, kepanitiaan, dan lomba menjadi CV lolos ATS serta simulasi wawancara HR/User untuk program Magang Berdampak maupun rekrutmen kerja.",
+        b4_t1: "Penilai CV ATS",
+        b4_t2: "Penulis Metode STAR",
+        b4_t3: "Simulasi Interview",
+        b5_badge: "05 · SKRIPSI",
+        b5_meta: "Konteks 200K · Bebas DOI Palsu",
+        b5_title: "Skripsi & Sidang Tugas Akhir",
+        b5_desc: "Sintesis 50+ jurnal Q1/SINTA sekaligus di konteks 200K Claude, temukan research gap, bangun matriks Bab 2 dengan DOI terverifikasi, dan simulasi tanya-jawab Sidang.",
+        b5_t1: "Sintesis Multi-PDF",
+        b5_t2: "Penjaga Sitasi DOI",
+        b5_t3: "Simulator Sempro/Sidang",
+        arch_eyebrow: "Arsitektur Sistem",
+        arch_title: "Mengapa kami membangun secara native di atas Anthropic Claude.",
+        arch_desc: "Alur kerja akademik menuntut penalaran mendalam di puluhan dokumen serta kejujuran ilmiah tingkat tinggi. Berikut cara kerja lapisan inteligensi kami.",
+        arch_l1_title: "Lapisan 01 · Sumber Input",
+        arch_in1: "PDF Jurnal & Zotero",
+        arch_in2: "Slide Kuliah & CSV Lab",
+        arch_in2_tag: "Pengurai Data",
+        arch_in3: "Buku Pedoman PKM & Kampus",
+        arch_in3_tag: "Indeks Rubrik",
+        arch_in4: "Rekam Jejak 8 Semester",
+        arch_in4_tag: "Graf Vektor",
+        arch_l2_title: "Lapisan 02 · Mesin Inti Claude",
+        arch_c1_t: "Perutean Model Dinamis",
+        arch_c1_d: "Mengarahkan sintesis skripsi & penurunan rumus STEM ke <strong>Claude 3.7 Sonnet</strong>, serta template kepanitiaan cepat ke <strong>Claude 3.5 Haiku</strong>.",
+        arch_c2_t: "Konteks 200K + Prompt Caching",
+        arch_c2_d: "Menyimpan naskah skripsi utuh, 50+ PDF referensi, dan pedoman lomba di memori aktif untuk respons instan dengan latensi 90% lebih rendah.",
+        arch_c3_t: "Pagar Pengaman Akademik Konstitusional",
+        arch_c3_d: "Menerapkan metode bimbingan Sokratik (bukan menyuapi jawaban instan) dan verifikasi sitasi DOI yang ketat.",
+        arch_l3_title: "Lapisan 03 · Output Terverifikasi",
+        arch_l3_badge: "Nol Halusinasi",
+        arch_out1: "Laporan LaTeX & APA",
+        arch_out1_tag: "Tertaut Halaman",
+        arch_out2: "TOR, RAB & Deck Sponsorship",
+        arch_out2_tag: "Siap Kirim",
+        arch_out3: "Proposal PKM & Case Teraudit",
+        arch_out3_tag: "Sesuai Pedoman",
+        arch_out4: "CV ATS & Persiapan Sidang Skripsi",
+        arch_out4_tag: "Siap Karir",
+        road_eyebrow: "Siklus Perjalanan Mahasiswa",
+        road_title: "Menemani perjalananmu dari Semester 1 hingga pekerjaan pertama.",
+        st1_sem: "SEMESTER 1–2",
+        st1_t: "Mahasiswa Baru (Maba)",
+        st1_d: "Adaptasi perkuliahan, kuasai tugas mata kuliah dasar, dan susun laporan praktikum pertamamu dengan rapi.",
+        st2_sem: "SEMESTER 3–4",
+        st2_t: "Aktif Berorganisasi",
+        st2_d: "Gerakkan kepanitiaan BEM/Hima dengan otomatisasi TOR acara, proposal sponsorship, dan anggaran RAB.",
+        st3_sem: "SEMESTER 4–5",
+        st3_t: "Juara Kompetisi",
+        st3_d: "Kirimkan proposal PKM yang patuh pedoman, karya tulis ilmiah (LKTI), dan pitch deck business case juara.",
+        st4_sem: "SEMESTER 6–7",
+        st4_t: "Magang Berdampak & Karir",
+        st4_d: "Ubah rekam jejak kuliahmu menjadi CV lolos ATS dan latih simulasi interview untuk Magang Berdampak & kerja.",
+        st5_sem: "SEMESTER 7–8",
+        st5_t: "Skripsi & Kelulusan",
+        st5_d: "Sintesis 50+ jurnal dengan DOI terverifikasi, selesaikan skripsi lebih cepat, dan kuasai sidang akhir.",
+        faq_heading: "Pertanyaan yang Sering Diajukan (FAQ)",
+        faq1_q: "Apa bedanya Diperkuliahan dengan memakai ChatGPT atau Claude biasa?",
+        faq1_a: "Chatbot AI umum dimulai dari halaman kosong dan sering mengarang sitasi jurnal palsu. Diperkuliahan menyediakan 5 agen spesialis mahasiswa yang terhubung dengan verifikasi DOI Crossref, pedoman PKM/PIMNAS Kemendikbud, generator dokumen BEM/organisasi, serta rubrik CV ATS Magang Berdampak—sekaligus menyimpan memori portofoliomu dari Maba hingga lulus.",
+        faq2_q: "Mengapa Diperkuliahan dibangun menggunakan Anthropic Claude?",
+        faq2_a: "Kami menggunakan Claude 3.7 Sonnet dan Haiku karena kapasitas konteks 200K token (mampu membaca 50+ PDF jurnal atau naskah skripsi utuh sekaligus), tingkat halusinasi paling rendah di industri, serta prinsip Constitutional AI yang mendukung pembelajaran Sokratik.",
+        faq3_q: "Apakah aman untuk etika akademik dan pengecekan plagiarisme kampus?",
+        faq3_a: "Sangat aman. Diperkuliahan dirancang sebagai co-pilot Sokratik dan verifikator riset, bukan mesin joki pembuat plagiarisme. Setiap klaim literatur ditautkan ke nomor DOI asli dan halaman PDF sehingga mahasiswa menulis karya ilmiah yang orisinal dan dapat dipertanggungjawabkan.",
+        cta_title: "Seluruh perjalanan kuliahmu, diperkuat 5 Agen AI.",
+        cta_sub: "Mulai dari tugas pertama saat Maba, program Magang Berdampak, hingga lulus sidang Skripsi dan menembus karir impian.",
+        cta_btn: "Book a Demo",
+        footer_copy: "© 2026 Platform AI Mahasiswa All-in-One.",
+        footer_ws: "Workspace",
+        footer_ag: "5 Agen",
+        footer_arch: "Arsitektur Claude",
+        modal_badge: "AKSES DEMO",
+        modal_title: "Book a Demo",
+        modal_desc: "Isi data kampusmu di bawah ini dan tim kami akan mengirimkan akses demo workspace langsung ke WhatsApp & Email kamu.",
+        label_name: "Nama Lengkap",
+        ph_name: "Misal: Rizky Pratama",
+        label_email: "Email Kampus (.ac.id / .edu)",
+        ph_email: "Misal: rizky@student.ac.id",
+        label_campus: "Nama Kampus / Universitas",
+        ph_campus: "Misal: Universitas Indonesia",
+        label_wa: "Nomor WhatsApp Aktif",
+        ph_wa: "Misal: 0812-3456-7890",
+        modal_submit: "Book a Demo",
+        modal_submitting: "Mengirim...",
+        modal_privacy_note: "Dengan mengirim, kamu menyetujui",
+        modal_success_title: "Permintaan Demo Diterima!",
+        modal_close_btn: "Kembali ke Halaman",
+        footer_privacy: "Kebijakan Privasi",
+        footer_terms: "Ketentuan Layanan",
+        footer_contact: "Kontak",
+        legal_updated: "Terakhir Diperbarui: Oktober 2026",
+        legal_close: "Tutup"
+      }
+    };
+
+    function renderWorkspace() {
+      const d = workspaceData[currentLang][currentAgentIdx];
+      document.getElementById('ws-breadcrumb').textContent = d.breadcrumb;
+      document.getElementById('ws-input-placeholder').textContent = d.placeholder;
+      document.getElementById('ws-tool-used').textContent = d.tool;
+
+      // Render Center Chat
+      const chatEl = document.getElementById('ws-chat-area');
+      chatEl.innerHTML = d.chat.map((c, i) => `
+        <div class="rounded-xl p-4 ${i === 0 ? 'bg-dp-surface border border-dp-line' : 'bg-dp-blueLight/50 border border-blue-200'}">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="font-mono text-[10.5px] font-semibold ${i === 0 ? 'text-dp-muted' : 'text-dp-blue'} uppercase">${c.role}</span>
+            ${i === 1 ? `<span class="rounded bg-dp-yellow px-1.5 py-0.5 font-mono text-[9.5px] font-bold text-dp-ink">${d.badgeText}</span>` : ''}
+          </div>
+          <p class="text-[13.5px] leading-relaxed text-dp-ink">${c.text}</p>
         </div>
-    </section>
+      `).join('');
 
-    <!-- Footer -->
-    <footer class="bg-slate-50 py-10 relative z-10 border-t border-slate-200">
-        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
-            <p>&copy; 2026 Diperkuliahan AI. All rights reserved.</p>
-            <div class="flex gap-6 font-medium">
-                <a href="mailto:halo@diperkuliahan.com" class="hover:text-dark">Kontak</a>
-                <a href="#" class="hover:text-dark">Privacy</a>
-                <a href="#" class="hover:text-dark">Terms</a>
-            </div>
+      // Render Right Artifact
+      const artEl = document.getElementById('ws-artifact-area');
+      artEl.innerHTML = `
+        <div class="flex items-center justify-between border-b border-dp-line pb-3">
+          <span class="font-mono text-[10.5px] font-semibold text-dp-muted">${d.artifactTitle}</span>
+          <span class="rounded-md bg-dp-yellow px-2 py-0.5 font-mono text-[10.5px] font-bold text-dp-ink">${d.artifactBadge}</span>
         </div>
-    </footer>
+        <div class="mt-4 space-y-2.5">
+          ${d.artifactLines.map(line => `
+            <div class="rounded-lg border border-dp-line bg-white px-3.5 py-2.5 text-[12.5px] font-medium text-dp-ink shadow-2xs">
+              ${line}
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
 
+    function switchAgent(idx) {
+      currentAgentIdx = idx;
+      for (let i = 0; i < 5; i++) {
+        const btn = document.getElementById('ag-btn-' + i);
+        if (i === idx) {
+          btn.className = "agent-tab flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-[13px] font-medium bg-white text-dp-blue shadow-2xs ring-1 ring-dp-line shrink-0";
+        } else {
+          btn.className = "agent-tab flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-[13px] font-medium text-dp-ink hover:bg-white/70 shrink-0";
+        }
+      }
+      renderWorkspace();
+    }
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+
+      document.getElementById('btn-en').className = lang === 'en'
+        ? 'rounded-md px-2.5 py-1 font-mono text-[11px] font-medium transition-all bg-white text-dp-ink shadow-sm'
+        : 'rounded-md px-2.5 py-1 font-mono text-[11px] font-medium transition-all text-dp-muted hover:text-dp-ink';
+      document.getElementById('btn-id').className = lang === 'id'
+        ? 'rounded-md px-2.5 py-1 font-mono text-[11px] font-medium transition-all bg-white text-dp-ink shadow-sm'
+        : 'rounded-md px-2.5 py-1 font-mono text-[11px] font-medium transition-all text-dp-muted hover:text-dp-ink';
+
+      // Translate all static elements
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (i18n[lang][key]) el.innerHTML = i18n[lang][key];
+      });
+
+      // Translate form input placeholders
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (i18n[lang][key]) el.setAttribute('placeholder', i18n[lang][key]);
+      });
+
+      // Re-render dynamic workspace & legal modal in the selected language
+      renderWorkspace();
+      renderLegalModal();
+    }
+
+    function toggleFaq(idx) {
+      const body = document.getElementById('faq-body-' + idx);
+      const icon = document.getElementById('faq-icon-' + idx);
+      body.classList.toggle('hidden');
+      icon.textContent = body.classList.contains('hidden') ? '+' : '−';
+    }
+
+    // Modal Controls
+    function openDemoModal() {
+      const modal = document.getElementById('demo-modal');
+      document.getElementById('modal-form-view').classList.remove('hidden');
+      document.getElementById('modal-success-view').classList.add('hidden');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeDemoModal() {
+      const modal = document.getElementById('demo-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // =========================================================
+    // KONFIGURASI GOOGLE SHEETS WEB APP URL (APPS SCRIPT)
+    // Tempel URL Web App Google Apps Script Anda di bawah ini:
+    // =========================================================
+    const GOOGLE_SHEETS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzIeJOsAQyk5HGnuWsdEqDyde_m969bXJupAj7UqHB2lRO7JMzfu2R2dycZ10lOWjzxYw/exec";
+
+    async function submitDemoForm(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('demo-submit-btn');
+      const originalBtnText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = i18n[currentLang].modal_submitting;
+
+      const name = document.getElementById('input-name').value.trim();
+      const email = document.getElementById('input-email').value.trim();
+      const campus = document.getElementById('input-campus').value.trim();
+      const wa = document.getElementById('input-wa').value.trim();
+
+      const payload = {
+        timestamp: new Date().toISOString(),
+        nama: name,
+        email_kampus: email,
+        nama_kampus: campus,
+        nomor_wa: wa,
+        bahasa: currentLang
+      };
+
+      try {
+        // 1. Kirim ke Google Sheets via Google Apps Script Web App (jika URL sudah diisi)
+        if (GOOGLE_SHEETS_WEBAPP_URL && !GOOGLE_SHEETS_WEBAPP_URL.startsWith("PASTE_")) {
+          const formData = new FormData();
+          Object.keys(payload).forEach(k => formData.append(k, payload[k]));
+          await fetch(GOOGLE_SHEETS_WEBAPP_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: formData
+          });
+        }
+
+        // 2. Fallback kirim ke Netlify Forms (jika di-host di Netlify)
+        const netlifyData = new URLSearchParams(payload);
+        netlifyData.append("form-name", "diperkuliahan-demo");
+        await fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: netlifyData.toString()
+        }).catch(() => {});
+      } catch (err) {
+        console.warn("Form submission log:", err);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+      }
+
+      const summaryEl = document.getElementById('modal-success-summary');
+      if (currentLang === 'id') {
+        summaryEl.innerHTML = `Terima kasih, <strong>${name}</strong> dari <strong>${campus}</strong>.<br>Undangan demo telah tercatat dan akan dikirimkan ke email kampus <strong>${email}</strong> serta WhatsApp <strong>${wa}</strong>.`;
+      } else {
+        summaryEl.innerHTML = `Thank you, <strong>${name}</strong> from <strong>${campus}</strong>.<br>Your demo request has been recorded and will be sent to <strong>${email}</strong> and WhatsApp <strong>${wa}</strong>.`;
+      }
+
+      document.getElementById('modal-form-view').classList.add('hidden');
+      document.getElementById('modal-success-view').classList.remove('hidden');
+      document.getElementById('demo-form').reset();
+    }
+
+    // =========================================================
+    // PRIVACY POLICY & TERMS OF SERVICE CONTENT (EN & ID)
+    // =========================================================
+    let currentLegalTab = 'privacy';
+
+    const legalContent = {
+      en: {
+        privacy: `
+          <h3 class="font-heading text-[20px] font-bold text-dp-ink">Privacy Policy</h3>
+          <p><strong>Diperkuliahan.com</strong> ("we", "our", or "us") is committed to protecting the academic privacy, personal data, and intellectual property of university students and researchers.</p>
+          <h4 class="font-heading text-[15px] font-bold text-dp-ink pt-2">1. Information We Collect</h4>
+          <p>When you book a demo or use our workspace, we collect your Full Name, Campus Email (.ac.id / .edu), University Name, and WhatsApp Number, as well as academic documents (PDF journals, lab CSVs, thesis drafts, and resumes) you voluntarily upload for processing.</p>
+          <h4 class="font-heading text-[15px] font-bold text-dp-ink pt-2">2. Zero Public AI Model Training</h4>
+          <p>We process AI tasks via the commercial <strong>Anthropic Claude API</strong>. Your unpublished thesis manuscripts (Skripsi), PKM competition ideas, laboratory datasets, and personal resumes are <strong>never used to train public AI models</strong>.</p>
+          <h4 class="font-heading text-[15px] font-bold text-dp-ink pt-2">3. Data Security & Ownership</h4>
+          <p>You retain 100% ownership and copyright over all academic work, research syntheses, and documents uploaded or generated within Diperkuliahan. All data is encrypted in transit (TLS 1.3) and at rest.</p>
+          <h4 class="font-heading text-[15px] font-bold text-dp-ink pt-2">4. Contact & Data Deletion</h4>
+          <p>You may request complete deletion of your account and Student Memory Graph at any time by contacting <a href="mailto:halo@diperkuliahan.com" class="text-dp-blue underline">halo@diperkuliahan.com</a>.</p>
+        `,
+        terms: `
+          <h3 class="font-heading text-[20px] font-bold text-dp-ink">Terms of Service & Academic Ethics</h3>
+          <p>By accessing <strong>Diperkuliahan.com</strong>, you agree to use our 5 AI Agents responsibly and in accordance with your university's academic integrity policies.</p>
+          <h4 class="font-heading text-[15px] font-bold text-dp-ink pt-2">1. Socratic Co-Pilot, Not Plagiarism</h4>
+          <p>Diperkuliahan is engineered as a Socratic learning assistant, literature verifier, and workflow organizer. Users are responsible for reviewing, verifying, and defending all final academic submissions (Coursework, PKM, and Skripsi).</p>
+          <h4 class="font-heading text-[15px] font-bold text-dp-ink pt-2">2. Citation Verification</h4>
+          <p>While our Thesis Agent cross-checks references against Crossref DOIs and uploaded PDFs, students must verify final citations against their department's formatting guidelines.</p>
+        `
+      },
+      id: {
+        privacy: `
+          <h3 class="font-heading text-[20px] font-bold text-dp-ink">Kebijakan Privasi (Privacy Policy)</h3>
+          <p><strong>Diperkuliahan.com</strong> berkomitmen penuh melindungi privasi data pribadi, rekam jejak akademik, dan hak kekayaan intelektual mahasiswa serta peneliti.</p>
+          <h4 class="font-heading text-[15px] font-bold text-dp-ink pt-2">1. Data yang Kami Kumpulkan</h4>
+          <p>Saat kamu mendaftar demo atau menggunakan workspace kami, kami mengumpulkan Nama Lengkap, Email Kampus (.ac.id / .edu), Nama Universitas, dan Nomor WhatsApp, serta dokumen akademik (PDF jurnal, CSV praktikum, draf skripsi, dan CV) yang kamu unggah secara sukarela.</p>
+          <h4 class="font-heading text-[15px] font-bold text-dp-ink pt-2">2. Jaminan Nol Pelatihan Model AI Publik</h4>
+          <p>Pemrosesan AI kami berjalan di atas <strong>Anthropic Claude API</strong> komersial. Naskah skripsi yang belum dipublikasikan, ide proposal PKM/lomba, data praktikum, dan CV pribadimu <strong>tidak pernah digunakan untuk melatih model AI publik</strong>.</p>
+          <h4 class="font-heading text-[15px] font-bold text-dp-ink pt-2">3. Keamanan & Kepemilikan Karya</h4>
+          <p>Kamu memegang 100% hak cipta dan kepemilikan atas seluruh tugas, karya tulis, dan draf skripsi yang diunggah maupun dihasilkan di Diperkuliahan. Seluruh transmisi data dienkripsi secara ketat.</p>
+          <h4 class="font-heading text-[15px] font-bold text-dp-ink pt-2">4. Penghapusan Data & Kontak</h4>
+          <p>Kamu dapat meminta penghapusan seluruh data akun dan Graf Memori Mahasiswa kapan saja melalui email <a href="mailto:halo@diperkuliahan.com" class="text-dp-blue underline">halo@diperkuliahan.com</a>.</p>
+        `,
+        terms: `
+          <h3 class="font-heading text-[20px] font-bold text-dp-ink">Ketentuan Layanan & Etika Akademik</h3>
+          <p>Dengan menggunakan <strong>Diperkuliahan.com</strong>, kamu setuju untuk memanfaatkan kelima Agen AI kami secara bertanggung jawab sesuai kode etik akademik di perguruan tinggimu.</p>
+          <h4 class="font-heading text-[15px] font-bold text-dp-ink pt-2">1. Asisten Sokratik, Bukan Joki Plagiarisme</h4>
+          <p>Diperkuliahan dirancang sebagai co-pilot pembelajaran Sokratik, verifikator literatur, dan pengelola dokumen organisasi. Mahasiswa bertanggung jawab penuh untuk memahami dan mempertahankan setiap karya ilmiah atau skripsi yang dikumpulkan.</p>
+          <h4 class="font-heading text-[15px] font-bold text-dp-ink pt-2">2. Verifikasi Sitasi</h4>
+          <p>Meskipun Agen Skripsi kami memverifikasi sitasi terhadap DOI Crossref dan PDF yang diunggah, mahasiswa tetap disarankan memeriksa kesesuaian daftar pustaka akhir dengan pedoman fakultas masing-masing.</p>
+        `
+      }
+    };
+
+    function renderLegalModal() {
+      document.getElementById('legal-modal-body').innerHTML = legalContent[currentLang][currentLegalTab];
+      document.getElementById('tab-legal-privacy').className = currentLegalTab === 'privacy'
+        ? "rounded-lg px-3 py-1.5 text-[12.5px] font-semibold bg-dp-blue text-white cursor-pointer"
+        : "rounded-lg px-3 py-1.5 text-[12.5px] font-semibold text-dp-muted hover:text-dp-ink cursor-pointer";
+      document.getElementById('tab-legal-terms').className = currentLegalTab === 'terms'
+        ? "rounded-lg px-3 py-1.5 text-[12.5px] font-semibold bg-dp-blue text-white cursor-pointer"
+        : "rounded-lg px-3 py-1.5 text-[12.5px] font-semibold text-dp-muted hover:text-dp-ink cursor-pointer";
+    }
+
+    function openPrivacyModal(tab = 'privacy') {
+      currentLegalTab = tab;
+      renderLegalModal();
+      const modal = document.getElementById('legal-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function switchLegalTab(tab) {
+      currentLegalTab = tab;
+      renderLegalModal();
+    }
+
+    function closePrivacyModal() {
+      const modal = document.getElementById('legal-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // Close modals when clicking backdrop
+    document.getElementById('demo-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeDemoModal();
+    });
+    document.getElementById('legal-modal').addEventListener('click', function(e) {
+      if (e.target === this) closePrivacyModal();
+    });
+
+    // =========================================================
+    // DECAP CMS / NETLIFY IDENTITY REDIRECT HANDLER
+    // =========================================================
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+
+    // Initialize Page
+    setLang('en');
+  </script>
 </body>
 </html>
